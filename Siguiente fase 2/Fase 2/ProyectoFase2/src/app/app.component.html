@@ -1,0 +1,89 @@
+<div id="wrapper">
+    <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                <div class="sidebar-brand-icon rotate-n-0"><img src="assets/img/trafalgar2.png" width="50" height="50"></div>
+                <div class="sidebar-brand-text mx-3"><span>VirtualMall</span></div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <ul class="navbar-nav text-light" id="accordionSidebar">
+                <!--<li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Table</span></a></li>-->
+                <li class="nav-item"><a class="nav-link" href="/"><i class="fas fa-home"></i><span>Inicio</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/inventario"><i class="fas fa-user-circle"></i><span>Inventario</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/carritoDeCompras"><i class="fas fa-user-circle"></i><span>Carrito de Compras</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/vistaCalendario"><i class="fas fa-user-circle"></i><span>Vista Calendario-Pedidos</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/cargarPedidos"><i class="fas fa-clipboard-check"></i><span>Cargar Pedidos</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/cargarInventario"><i class="fas fa-clipboard-check"></i><span>Cargar Inventario</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/cargarTiendas"><i class="fas fa-clipboard-check"></i><span>Cargar Tiendas</span></a></li>
+                <!--<li class="nav-item"><a class="nav-link" href="http://localhost:3000/arbolBinario" target="_blank"><i class="fas fa-sitemap"></i><span>Ver Árbol de Estudiantes</span></a></li>-->
+            </ul>
+        </div>
+    </nav>
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+            <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                  <div class="sidebar-brand-text mx-3"><span>Trafalgar D. VirtualMall</span></div>
+                    <ul class="navbar-nav flex-nowrap ml-auto">
+                        <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right p- animated--grow-in" aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto navbar-search w-100">
+                                    <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                        <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <div class="d-none d-sm-block topbar-divider"></div>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <br>
+        <br>
+        <footer class="bg-white sticky-footer">
+          <div class="container">
+              <div class="row">
+                  <div class="col-4 offset-1 col-sm-2">
+                      <h5>Links</h5>
+                      <ul class="list-unstyled">
+                          <li><a href="/">Inicio</a></li>
+                          <li><a href="/inventario">Inventario</a></li>
+                          <li><a href="/carritoDeCompras">Carrito de Compras</a></li>
+                          <li><a href="/vistaCalendario">Vista Calendarios-Pedidos</a></li>
+                          <li><a href="/cargarPedidos">Cargar Pedido</a></li>
+                          <li><a href="/cargarInventario">Cargar Inventario</a></li>
+                          <li><a href="/cargarTiendas">Cargar Tienda</a></li>
+                          <!--<li><a href="http://localhost:3000/arbolBinario" target="_blank">Ver Árbol de Estudiantes</a></li>-->
+                      </ul>
+                  </div>
+                  <div>
+                      <h5>Informacion</h5>
+                      <address>
+                          Proyecto Fase 2 de EDD<br>
+                          <i class="fa fa-phone fa-lg"></i>: +502 31717782<br>
+                          <i class="fas fa-globe fas-lg"></i>: <a href="https://www.usac.edu.gt/">USAC</a>
+                      </address>
+                  </div>
+                  <div class="col-12 col-sm-4 align-self-center">
+                      <div class="text-center">
+                          <a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/"><i
+                                  class="fa fa-facebook fa-lg"></i></a>
+                          <a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i
+                                  class="fa fa-twitter fa-lg"></i></a>
+                          <a class="btn btn-social-icon btn-google" href="http://youtube.com/"><i
+                                  class="fa fa-youtube fa-lg"></i></a>
+                      </div>
+                  </div>
+              </div>
+              <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>201800517 Proyecto EDD</span></div>
+            </div>
+          </div>
+      </footer>
+    </div>
+  </div>
