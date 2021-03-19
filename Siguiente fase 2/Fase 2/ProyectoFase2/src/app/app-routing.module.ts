@@ -8,6 +8,7 @@ import { CarritoDeComprasComponent } from './componentes/carrito-de-compras/carr
 import { CalendarioPedidosComponent } from './componentes/calendario-pedidos/calendario-pedidos.component';
 import { CargarPedidosComponent } from './componentes/cargar-pedidos/cargar-pedidos.component';
 import { CargarInventarioComponent } from './componentes/cargar-inventario/cargar-inventario.component';
+import { PruebaComponent } from './componentes/prueba/prueba.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'cargarInventario',
     component: CargarInventarioComponent,
+  },
+  {
+    path: 'prueba',
+    component: PruebaComponent,
   }
 ];
 
