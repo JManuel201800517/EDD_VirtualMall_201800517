@@ -1,3 +1,110 @@
-<h2>Subir las tiendas a VirtualMall</h2>
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+  <div class="col-md-5">
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          Estudiante creado correctamente
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+  </div>
+</div>
+<div *ngIf="mostrarMensajeError" class="row justify-content-around">
+  <div class="col-md-5">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          No se pudo crear el estudiante
+          <button type="button"  class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+  </div>
+</div>
+<div class="container">
+  <div class="rounded card shadow-lg o-hidden border-0 my-5">
+      <div class="card-body p-0">
+          <div class="row">
+              <div class="col-lg-5 d-none d-lg-flex">
+                  <div class="flex-grow-1 bg-register-image"
+                      style="background-image: url(&quot;assets/img/Usac_logo.jpeg&quot;);"></div>
+              </div>
+              <div class="col-lg-7">
+                  <div class="p-5">
+                      <div class="text-center">
+                          <h4 class="text-dark mb-4">Crear Estudiante</h4>
+                      </div>
+                      <form class="user">
+                          <!--<div class="form-group row">
+                              <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="nombres" class="form-control form-control-user"
+                                      type="text" id="exampleFirstName" placeholder="Nombres" name="first_name">
+                              </div>
+                              <div class="col-sm-6"><input [formControl]="apellidos" class="form-control form-control-user" type="text"
+                                      id="exampleFirstName" placeholder="Apellidos" name="Apellidos"></div>
+                          </div>
+                          <div class="form-group row">
+                              <div class="col-sm-6">
+                                  <input [formControl]="carnet" class="form-control form-control-user" type="number" id="inputCui"
+                                      placeholder="Carnet" name="carnet">
+                              </div>
+                              <div class="col-sm-6">
+                                  <input [formControl]="cui" class="form-control form-control-user" type="number" id="inputCui"
+                                      placeholder="CUI" name="inputCui">
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                              <div class="col-sm-12">
+                                  <input [formControl]="correo" class="form-control form-control-user" type="email" id="exampleInputEmail"
+                                      aria-describedby="emailHelp" placeholder="Correo Electrónico" name="email">
+                              </div>
+                          </div>-->
+                          <div class="row justify-content-center">
+                              <div class="col-sm-6">
+                                  <button (click)="subirTiendas()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                                    Tiendas Subidas
+                                    <table class="table">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th scope="col">Indice</th>
+                                          <th scope="col">Departamento</th>
+                                          <th scope="col">Id</th>
+                                          <th scope="col">Nombre Tienda</th>
+                                          <th scope="col">Descripcion</th>
+                                          <th scope="col">Contacto</th>
+                                          <th scope="col">Calificacion</th>
+                                          <th scope="col">Logo</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr *ngFor="let tienda of Tiendas">
+                                          <tr *ngFor="let datos of Tiendas.Datos">
+                                            <td>{{datos.Indice}}</td>
+                                            <tr *ngFor="let departamentos of Tiendas.Datos.Departamentos">
+                                              <td>{{departamentos.Nombre}}</td>
+                                              <tr *ngFor="let info of Tiendas.Datos.Departamentos.Tiendas">
+                                                <td>{{info.Nombre}}</td>
+                                                <td>{{info.Descripcion}}</td>
+                                                <!--<th scope="row">{{postre.Indice}}</th>-->
+                                                <td>{{info.Contacto}}</td>
+                                                <td>{{info.Calificacion}</td>
+                                                <td>
+                                                  <a href="{{info.Logo}}" width="30px" class="img-fluid">
+                                                <!--</td>-->
 
-<h5> </h5>
+                                              <!--</tr>-->
+
+                                            <!--</tr>-->
+
+                                         <!-- </tr>-->
+                                          <!--<td>{{postre.fecha}}</td>-->
+                                       <!-- </tr>-->
+                                      <!--</tbody>-->
+                                    <!--</table>-->
+                                  <!--</button>-->
+                              <!--</div>-->
+                          <!--</div>-->
+                      <!--</form>-->
+                  <!--</div>-->
+              <!--</div>-->
+          <!--</div>-->
+      <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
