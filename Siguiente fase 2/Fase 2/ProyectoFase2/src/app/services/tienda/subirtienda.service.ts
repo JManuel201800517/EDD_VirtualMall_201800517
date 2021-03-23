@@ -14,12 +14,12 @@ export class SubirtiendaService {
     
   }
 
-  //postTienda(tienda):Observable<any>{
-    //const httpOptions = {
-      //headers: new HttpHeaders({
-      //  "Content-Type": "application/json"
-      //}),
-    //};
-    //return this.http.post<Datos[]>(baseURL+"cargartienda/subir", tienda, httpOptions)
-  //}
+  postTienda(tienda: string):Observable<Tienda>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+    };
+    return this.http.post<Tienda>(baseURL+"cargartienda/subir", tienda, httpOptions)
+  }
 }

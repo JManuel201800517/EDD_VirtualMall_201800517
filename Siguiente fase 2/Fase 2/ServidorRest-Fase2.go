@@ -500,17 +500,17 @@ func PedidosEndPoint(w http.ResponseWriter, req *http.Request){
 
 	pedir = append(pedir, peticion)
 
-	for _, item := range invent {
+	//for _, item := range invent {
 
-		for _, otro := range pedir{
+	//	for _, otro := range pedir{
 
-			for z := 0; z < len(item.DatosInventario); z++ {
+	//		for z := 0; z < len(item.DatosInventario); z++ {
 
-				j := 0
+	//			j := 0
 	
-				for j < len(item.DatosInventario[z].TiendaPedido) {
+	//			for j < len(item.DatosInventario[z].TiendaPedido) {
 	
-					q := 0
+	//				q := 0
 
 
 	
@@ -523,19 +523,19 @@ func PedidosEndPoint(w http.ResponseWriter, req *http.Request){
 					//	return
 					//}
 	
-					j = j + 1
+	//				j = j + 1
 	
-				}
+	//			}
 	
-			}
+	//		}
 
 
-		}
+	//	}
 
 
-	}
+	//}
 
-	json.NewEncoder(w).Encode(&Inventario{})
+	//json.NewEncoder(w).Encode(&Inventario{})
 	
 }
 
