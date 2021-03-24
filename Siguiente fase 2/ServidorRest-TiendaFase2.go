@@ -58,7 +58,7 @@ type Eliminacion struct {
 var invent []Inventario
 
 type Inventario struct{
-	DatosInventario  []InfoInventario  `json:"Descripcion,omitempty"`
+	DatosInventario  []InfoInventario  `json:"Inventarios,omitempty"`
 }
 
 type InfoInventario struct{
@@ -193,6 +193,18 @@ func Ordenamiento(w http.ResponseWriter, req *http.Request) {
 func ListadoDeTiendasEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(cargartienda)
+
+}
+
+func ListadoDeInventarioEndpoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(invent)
+
+}
+
+func ListadoDePedidoEndpoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(pedir)
 
 }
 
@@ -479,21 +491,44 @@ func EliminarRegistroEndPoint(w http.ResponseWriter, req *http.Request) {
 
 func InventarioEndPoint(w http.ResponseWriter, req *http.Request){
 	w.Header().Set("Content-Type", "application/json")
-
 	var produc Inventario
-	json.NewDecoder(req.Body).Decode(&produc)
+	reqBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Insertar dato valido")
+	}
 
+	json.Unmarshal(reqBody, &produc)
+
+	for z := 0; z < len(produc.DatosInventario); z++ {
+		for j := 0; j < len(produc.DatosInventario[z].ProductosInventario); j++ {
+			_ = json.NewDecoder(req.Body).Decode(&produc)
+
+		}
+	}
 	invent = append(invent, produc)
+	json.NewEncoder(w).Encode(produc)
+
 
 }
 
 func PedidosEndPoint(w http.ResponseWriter, req *http.Request){
 	w.Header().Set("Content-Type", "application/json")
-
 	var peticion Pedidos
-	json.NewDecoder(req.Body).Decode(&peticion)
+	reqBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Insertar dato valido")
+	}
 
+	json.Unmarshal(reqBody, &peticion)
+
+	for z := 0; z < len(peticion.PEDIDO); z++ {
+		for j := 0; j < len(peticion.PEDIDO[z].ProductosPedido); j++ {
+			_ = json.NewDecoder(req.Body).Decode(&peticion)
+
+		}
+	}
 	pedir = append(pedir, peticion)
+	json.NewEncoder(w).Encode(peticion)
 
 	//for _, item := range invent {
 
@@ -616,6 +651,10 @@ func main() {
 
 	//endpoints
 	router.HandleFunc("/cargartienda", ListadoDeTiendasEndpoint).Methods("GET")
+
+	router.HandleFunc("/cargarinventario", ListadoDeInventarioEndpoint).Methods("GET")
+
+	router.HandleFunc("/cargarpedido", ListadoDePedidoEndpoint).Methods("GET")
 
 	router.HandleFunc("/cargartienda/indice/{Indice}", ObtenerIndiceTiendaEndpoint).Methods("GET")
 	router.HandleFunc("/cargartienda/tipotienda/{Nombre}", ObtenerNombreTipoTiendaEndpoint).Methods("GET")

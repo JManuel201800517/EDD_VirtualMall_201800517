@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import listadotiendas from "src/json/Tiendas.json";
+import { FormControl } from '@angular/forms';
+import { PedidosService } from "../../services/pedidos/pedidos.service";
 
 @Component({
   selector: 'app-cargar-pedidos',
@@ -7,9 +11,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CargarPedidosComponent implements OnInit {
 
-  constructor() { }
+  peticion = new FormControl('');
+  mostrarMensaje = false;
+  mostrarMensajeError = false;
+
+  constructor(private pedidosservice: PedidosService) { }
 
   ngOnInit(): void {
+  }
+
+  subirPedidos(){
+    console.log("Funciona muy bien")
+    //console.log(this.inventario.value)
+
+
+    this.pedidosservice.postPedido(this.peticion.value).subscribe((res:any)=>{
+      this.mostrarMensaje=true
+      this.peticion.setValue("")
+      console.log("Pedidos Cargados")
+      console.log(res)
+
+    }, (err)=>{
+      this.mostrarMensajeError=true
+    })
+  }
+
+  desactivarMensaje(){
+    this.mostrarMensaje=false
+    this.mostrarMensajeError=false
   }
 
 }

@@ -18,7 +18,7 @@ import * as tiendas from "../../../json/Tiendas.json";
 })
 export class CargarTiendasComponent implements OnInit {
 
-  Tiendas: any = listadotiendas
+  //Tiendas: any = listadotiendas
 
 
   nombre = new FormControl('');
