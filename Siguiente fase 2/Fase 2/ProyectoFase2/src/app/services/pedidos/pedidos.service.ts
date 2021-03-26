@@ -19,4 +19,13 @@ export class PedidosService {
     };
     return this.http.post<Pedidos>(baseURL+"Pedidos", pedir, httpOptions)
   }
+
+  getListaPedidos():Observable<Pedidos[]>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<Pedidos[]>(baseURL + 'cargarpedido', httpOptions);
+  }
 }

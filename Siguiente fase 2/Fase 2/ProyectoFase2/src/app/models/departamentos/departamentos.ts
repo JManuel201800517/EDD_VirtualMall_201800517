@@ -2,12 +2,12 @@ import { Info } from "../info/info";
 import { Binary } from "@angular/compiler";
 
 export class Departamentos {
-    tipotienda: string
-    notienda: Info[]
+    Nombre: string
+    Tiendas: Info[]
 
-    constructor(_tipotienda: string, _notienda: Info[]){
-        this.tipotienda = _tipotienda
-        this.notienda = _notienda
+    constructor(_Nombre: string, _Tiendas: Info[]){
+        this.Nombre = _Nombre
+        this.Tiendas = _Tiendas
 
     }
 

@@ -1,9 +1,9 @@
 export class Pedirproductos {
 
-    ProductoCodigo: string
+    Codigo: number
 
-    constructor(_ProductoCodigo: string){
-        this.ProductoCodigo = _ProductoCodigo
+    constructor(_Codigo: number){
+        this.Codigo = _Codigo
 
     }
 }

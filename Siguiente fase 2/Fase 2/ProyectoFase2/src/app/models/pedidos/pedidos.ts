@@ -1,9 +1,9 @@
 import { Infopedido } from "../infopedido/infopedido";
 
 export class Pedidos {
-    Pedido: Infopedido[]
+    Pedidos: Infopedido[]
 
-    constructor(_Pedido: Infopedido[]){
-        this.Pedido = _Pedido
+    constructor(_Pedidos: Infopedido[]){
+        this.Pedidos = _Pedidos
     }
 }

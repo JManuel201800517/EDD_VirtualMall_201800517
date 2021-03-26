@@ -1,10 +1,10 @@
 import { Infoinventario } from "../infoinventario/infoinventario";
 
 export class Inventario {
-    DatosInventario: Infoinventario[]
+    Inventarios: Infoinventario[]
 
-    constructor(_DatosInventario: Infoinventario[]){
-        this.DatosInventario = _DatosInventario
+    constructor(_Inventarios: Infoinventario[]){
+        this.Inventarios = _Inventarios
     }
     
 }

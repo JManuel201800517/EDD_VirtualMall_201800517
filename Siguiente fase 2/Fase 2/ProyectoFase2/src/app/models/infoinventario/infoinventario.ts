@@ -1,17 +1,17 @@
 import { Productos } from "../Productos/productos";
 
 export class Infoinventario {
-    InvenTienda: string
-    InvenDepartamento: string
-    InvenCalificacion: number
-    ProductosInventario: Productos[]
+    Tienda: string
+    Departamento: string
+    Calificacion: number
+    Productos: Productos[]
 
-    constructor(_InvenTienda: string, _InvenDepartamento: string,
-        _InvenCalificacion: number, _ProductosInventario: Productos[]){
-        this.InvenTienda = _InvenTienda
-        this.InvenDepartamento = _InvenDepartamento
-        this.InvenCalificacion = _InvenCalificacion
-        this.ProductosInventario = _ProductosInventario
+    constructor(_Tienda: string, _Departamento: string,
+        _Calificacion: number, _Productos: Productos[]){
+        this.Tienda = _Tienda
+        this.Departamento = _Departamento
+        this.Calificacion = _Calificacion
+        this.Productos = _Productos
 
     }
 }

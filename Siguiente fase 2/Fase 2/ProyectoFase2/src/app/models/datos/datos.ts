@@ -2,12 +2,12 @@ import { Departamentos } from "../departamentos/departamentos";
 import { Binary } from "@angular/compiler";
 
 export class Datos {
-    indice: string
-    departinfo: Departamentos[]
+    Indice: string
+    Departamentos: Departamentos[]
 
-    constructor(_indice: string, _departinfo: Departamentos[]){
-        this.indice = _indice
-        this.departinfo = _departinfo
+    constructor(_Indice: string, _Departamentos: Departamentos[]){
+        this.Indice = _Indice
+        this.Departamentos = _Departamentos
 
     }
 }

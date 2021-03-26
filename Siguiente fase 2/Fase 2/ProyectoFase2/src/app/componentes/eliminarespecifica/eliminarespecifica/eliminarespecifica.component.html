@@ -1,0 +1,57 @@
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Eliminacion realizada correctamente
+            <button type="button" (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="mostrarMensajeError" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se pudo subir las tiendas para la Eliminacion
+            <button type="button"  (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/redball.png&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Cargar Eliminacion</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Ingrese en este apartado todo la estructura json en el cuadro de texto</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+      <form class="user">
+          <div class="form-group row"><textarea [formControl]="eliminacion" size="100" class="form-control form-control"
+            id="exampleFirstName" placeholder="Ingrese en este apartado la estructura Json" name="first_name"></textarea>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-sm-6">
+                  <button (click)="subirEliminacion()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   Subir Eliminacion
+                    
+                  </button>
+              </div>
+          </div>
+      </form>
+    </div>

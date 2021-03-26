@@ -20,4 +20,13 @@ export class InventarioService {
     };
     return this.http.post<Inventario>(baseURL+"Inventario", invent, httpOptions)
   }
+
+  getListaInventarios():Observable<Inventario[]>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<Inventario[]>(baseURL + 'cargarinventario', httpOptions);
+  }
 }

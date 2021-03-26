@@ -1,1 +1,58 @@
-<p>calendario-pedidos works!</p>
+<div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/honorball.png&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Calendario Pedidos</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">En este apartado se visualizan todos los pedidos que se han hecho a VirtualMall</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+      <form class="user">
+          <div class="form-group row">
+            
+            <div *ngIf="cargarpedido">
+              <div *ngFor="let indi of cargarpedido.Pedidos"> 
+                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  Pedido  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+                <div class="card">
+                    <div class="card-header" role="tab">
+                      <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Fecha:    {{indi.Fecha}}</a></h5>
+                    </div>
+                    <div class="card-header" role="tab">
+                      <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Tienda:    {{indi.Tienda}}</a></h5>
+                    </div>
+                    <div class="card-header" role="tab">
+                      <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Departamento    {{indi.Departamento}}</a></h5>
+                    </div>
+                    <div class="card-header" role="tab">
+                      <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Calificacion:    {{indi.Calificacion}}</a></h5>
+                    </div>
+                    
+                  </div>
+                  -------------------Codigo Productos --------------------------
+                  <div *ngFor="let loc of indi.Productos">
+                    <div class="card-header" role="tab">
+                        {{loc.Codigo}}
+                      </div>
+                    
+                  </div>
+              </div>
+            </div>
+          </div>
+  
+      </form>
+    </div>

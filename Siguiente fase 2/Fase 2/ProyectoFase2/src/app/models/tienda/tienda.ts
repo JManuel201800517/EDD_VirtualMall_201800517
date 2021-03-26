@@ -2,9 +2,9 @@ import { Datos } from "../datos/datos";
 import { Binary } from "@angular/compiler";
 
 export class Tienda {
-    datosinfo: Datos[]
+    Datos: Datos[]
 
-    constructor(_datosinfo: Datos[]){
-        this.datosinfo = _datosinfo
+    constructor(_Datos: Datos[]){
+        this.Datos = _Datos
     }
 }

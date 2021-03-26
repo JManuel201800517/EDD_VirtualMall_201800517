@@ -13,6 +13,10 @@ import { CalendarioPedidosComponent } from './componentes/calendario-pedidos/cal
 import { CargarPedidosComponent } from './componentes/cargar-pedidos/cargar-pedidos.component';
 import { CargarInventarioComponent } from './componentes/cargar-inventario/cargar-inventario.component';
 import { PruebaComponent } from './componentes/prueba/prueba.component';
+import { TiendasComponent } from './componentes/tiendas/tiendas.component';
+import { ObjToArrayPipe } from './objToArray.pipe';
+import { BusquedaespecificaComponent } from './componentes/busquedaespecifica/busquedaespecifica/busquedaespecifica.component';
+import { EliminarespecificaComponent } from './componentes/eliminarespecifica/eliminarespecifica/eliminarespecifica.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { PruebaComponent } from './componentes/prueba/prueba.component';
     CalendarioPedidosComponent,
     CargarPedidosComponent,
     CargarInventarioComponent,
-    PruebaComponent
+    PruebaComponent,
+    TiendasComponent,
+    ObjToArrayPipe,
+    BusquedaespecificaComponent,
+    EliminarespecificaComponent
   ],
   imports: [
     BrowserModule,

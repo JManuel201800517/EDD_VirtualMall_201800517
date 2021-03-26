@@ -1,20 +1,20 @@
 import { Binary } from "@angular/compiler";
 
 export class Info {
-    id: number
-    nombre: string
-    descripcion: string
-    contacto: string
-    calificacion: number
-    logo: string
+    Id: number
+    Nombre: string
+    Descripcion: string
+    Contacto: string
+    Calificacion: number
+    Logo: string
 
-    constructor(_id: number, _nombre: string, _descripcion: string, _contacto: string, _calificacion: number, _logo: string){
-        this.id = _id
-        this.nombre = _nombre
-        this.descripcion = _descripcion
-        this.contacto = _contacto
-        this.calificacion = _calificacion
-        this.logo = _logo
+    constructor(_Id: number, _Nombre: string, _Descripcion: string, _Contacto: string, _Calificacion: number, _Logo: string){
+        this.Id = _Id
+        this.Nombre = _Nombre
+        this.Descripcion = _Descripcion
+        this.Contacto = _Contacto
+        this.Calificacion = _Calificacion
+        this.Logo = _Logo
     }
 
 }

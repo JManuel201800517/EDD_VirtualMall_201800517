@@ -37,6 +37,7 @@ type info struct {
 	DESCRIPCION  string `json:"Descripcion,omitempty"`
 	CONTACTO     string `json:"Contacto,omitempty"`
 	CALIFICACION int    `json:"Calificacion,omitempty"`
+	LOGO         string `json:"Logo,omitempty"`
 }
 
 var tiendaespecifica []Especifica
@@ -62,7 +63,7 @@ type Inventario struct{
 }
 
 type InfoInventario struct{
-	InvenTienda          string      `json:"Nombre,omitempty"`
+	InvenTienda          string      `json:"Tienda,omitempty"`
 	InvenDepartamento    string      `json:"Departamento,omitempty"`
 	InvenCalificacion    int         `json:"Calificacion,omitempty"`
 	ProductosInventario  []Productos `json:"Productos,omitempty"`
@@ -670,7 +671,7 @@ func main() {
 
 	router.HandleFunc("/TiendaEspecifica", TiendaEspecificaEndPoint).Methods("POST")
 
-	router.HandleFunc("/Eliminar", EliminarRegistroEndPoint).Methods("DELETE")
+	router.HandleFunc("/Eliminar", EliminarRegistroEndPoint).Methods("POST")
 
 
 
