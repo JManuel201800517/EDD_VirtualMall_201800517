@@ -17,6 +17,8 @@ import { TiendasComponent } from './componentes/tiendas/tiendas.component';
 import { ObjToArrayPipe } from './objToArray.pipe';
 import { BusquedaespecificaComponent } from './componentes/busquedaespecifica/busquedaespecifica/busquedaespecifica.component';
 import { EliminarespecificaComponent } from './componentes/eliminarespecifica/eliminarespecifica/eliminarespecifica.component';
+import { CreacionUsuarioComponent } from './componentes/creacion-usuario/creacion-usuario.component';
+import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/eliminacion-usuario.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { EliminarespecificaComponent } from './componentes/eliminarespecifica/el
     TiendasComponent,
     ObjToArrayPipe,
     BusquedaespecificaComponent,
-    EliminarespecificaComponent
+    EliminarespecificaComponent,
+    CreacionUsuarioComponent,
+    EliminacionUsuarioComponent
   ],
   imports: [
     BrowserModule,

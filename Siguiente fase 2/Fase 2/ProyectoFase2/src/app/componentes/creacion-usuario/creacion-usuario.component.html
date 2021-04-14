@@ -1,0 +1,124 @@
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Usuarios o Usuario subidos correctamente
+            <button type="button" (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="mostrarMensajeError" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se pudo subir el usuario o los usuarios
+            <button type="button"  (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/acopioball.jpg&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Cargar Usuario Individual</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Ingrese en este apartado los datos correspondientes de cada campo solicitado</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="user">
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="dpi" class="form-control form-control-user"
+                    type="number" id="exampledpi" placeholder="Dpi" name="Dpi">
+            </div>
+            <div class="col-sm-6"><input [formControl]="nombre" class="form-control form-control-user" type="text"
+                    id="examplenombre" placeholder="Nombre" name="Nombre"></div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input [formControl]="correo" class="form-control form-control-user" type="email" id="exampleInputCorreo"
+                    aria-describedby="emailHelp" placeholder="Correo Electrónico" name="email">
+            </div>
+            <div class="col-sm-6">
+                <input [formControl]="password" class="form-control form-control-user" type="text" id="inputPassword"
+                    placeholder="Password" name="inputPassword">
+            </div>
+        </div>
+        <div class="form-group row">
+
+            <div class="form-group"><label for="email"><strong>Cuenta</strong></label>
+                <select class="form-control form-select" [(ngModel)]="opcion" name="opcion">
+                    <option> Admin </option>
+                    <option> Usuario </option>
+                  </select>
+            </div>
+            
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <button (click)="crearUsuario()" class="btn btn-primary btn-block text-white btn-user" type="submit">Crear nuevo Usuario</button>
+            </div>
+        </div>
+    </form>
+    
+  </div>
+
+
+  
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/pesoball.png&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Cargar Usuarios de Forma Masiva</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Ingrese en este apartado todo la estructura json de los usuarios de forma masiva en el cuadro de texto</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+      <form class="user">
+          <div class="form-group row"><textarea [formControl]="creacionmasiva" size="100" class="form-control form-control"
+            id="masiva" placeholder="Ingrese en este apartado la estructura Json" name="masiva"></textarea>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-sm-6">
+                  <button (click)="subirUsuarioMasivo()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   Subir Usuarios de Forma Masiva
+                    
+                  </button>
+              </div>
+          </div>
+      </form>
+    </div>
+    
+  
+  
+

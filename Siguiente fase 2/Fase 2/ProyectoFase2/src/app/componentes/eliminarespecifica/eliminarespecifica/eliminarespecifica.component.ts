@@ -27,6 +27,8 @@ export class EliminarespecificaComponent implements OnInit {
     console.log("Funciona muy bien")
     //console.log(this.inventario.value)
 
+    console.log(this.eliminacion.value)
+
 
     this.eliminarService.deleteTienda(this.eliminacion.value).subscribe((res:any)=>{
       this.mostrarMensaje=true

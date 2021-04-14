@@ -12,6 +12,8 @@ import { PruebaComponent } from './componentes/prueba/prueba.component';
 import { TiendasComponent } from "./componentes/tiendas/tiendas.component";
 import { BusquedaespecificaComponent } from './componentes/busquedaespecifica/busquedaespecifica/busquedaespecifica.component';
 import { EliminarespecificaComponent } from './componentes/eliminarespecifica/eliminarespecifica/eliminarespecifica.component';
+import { CreacionUsuarioComponent } from './componentes/creacion-usuario/creacion-usuario.component';
+import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/eliminacion-usuario.component';
 
 const routes: Routes = [
   {
@@ -57,6 +59,14 @@ const routes: Routes = [
   {
     path: 'eliminarEspecifica',
     component: EliminarespecificaComponent,
+  },
+  {
+    path: "CreacionUsuario",
+    component: CreacionUsuarioComponent,
+  },
+  {
+    path: "EliminarUsuario",
+    component: EliminacionUsuarioComponent,
   }
 ];
 

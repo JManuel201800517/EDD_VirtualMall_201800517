@@ -1,1 +1,115 @@
-<p>carrito-de-compras works!</p>
+<div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/mallaball.jpg&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Carrito de Compras</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">En este apartado se visualizan el Inventario Disponible asi como su Tienda-Departamento-Calificacion para su compra en el carrito de compras</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container"><h3 class="text-dark mb-4">Realizar Pedido</h3>
+    <form class="user">
+        <h5 class="text-dark mb-4">Escribir la Fecha de Pedido</h5>
+        <div class="form-group row"> 
+            <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="Fecha" class="form-control form-control-user"
+                    type="text" id="exampledFecha" placeholder="Fecha Pedido: ../../.." name="Fecha">
+            </div>
+            
+        </div>
+        <h5 class="text-dark mb-4">Escribir Datos Generales</h5>
+        <div class="form-group row"> 
+            <div class="col-sm-6"><input [formControl]="Tienda" class="form-control form-control-user" type="text"
+                id="exampleTienda" placeholder="Tienda Pedido" name="Tienda"></div>
+            <div class="col-sm-6"><input [formControl]="Departamento" class="form-control form-control-user" type="text"
+                id="exampleDepartamento" placeholder="Departamento Pedido" name="Departamento"></div>
+            <div class="col-sm-6">
+                <input [formControl]="Calificacion" class="form-control form-control-user" type="text" id="inputCalificacion"
+                    placeholder="Calificacion Pedido" name="inputCalificacion">
+            </div>
+        </div>
+        <h5 class="text-dark mb-4">Escribir el Codigo del Producto Deseado</h5>
+        <div class="form-group row"> 
+            <div class="col-sm-6"><input [formControl]="Codigo" class="form-control form-control-user" type="text"
+                id="exampleCodigo" placeholder="Codigo Producto" name="Codigo"></div>
+
+            <div class="col-sm-6">
+                <button (click)="agregarProducto()" class="btn btn-primary btn-block text-white btn-user" type="submit">Agregar Producto</button>
+            </div>
+        </div>
+        <h5 class="text-dark mb-4">Escribir el Codigo del Producto No deseado para su eliminacion</h5>
+        <div class="form-group row"> 
+            <div class="col-sm-6"><input [formControl]="CodigoElim" class="form-control form-control-user" type="text"
+                id="exampleCodigoElim" placeholder="Codigo de Producto No deseado" name="CodigoElim"></div>
+
+            <div class="col-sm-6">
+                <button (click)="eliminarProducto()" class="btn btn-primary btn-block text-white btn-user" type="submit">Eliminar Producto</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <button (click)="crearPedido()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Compra</button>
+            </div>
+        </div>
+    </form>
+    
+  </div>
+
+
+
+  <div class="container">
+      <form class="user">
+          <div class="form-group row">
+            
+            <div *ngIf="cargarinventario">
+              <div *ngFor="let indi of cargarinventario.Inventarios"> 
+                ------------------------------------------------------------------
+                <div class="card-header" role="tab">
+                  {{indi.Tienda}}, {{indi.Departamento}}, {{indi.Calificacion}}
+                </div>
+                  <div *ngFor="let loc of indi.Productos">
+                    -----------------------------------------------------------
+                    <div class="card">
+                      <img src="{{loc.Imagen}}"  width="150" height="100">
+                      
+                      <div class="card-header" role="tab">
+                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Nombre:    {{loc.Nombre}}</a></h5>
+                      </div>
+                      <div class="card-header" role="tab">
+                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Codigo:    {{loc.Codigo}}</a></h5>
+                      </div>
+                      <div class="card-header" role="tab">
+                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Descripcion:    {{loc.Descripcion}}</a></h5>
+                      </div>
+                      <div class="card-header" role="tab">
+                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Precio:    {{loc.Precio}}</a></h5>
+                      </div>
+                      <div class="card-header" role="tab">
+                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Cantidad:    {{loc.Cantidad}}</a></h5>
+                      </div>
+                      <div class="card-header" role="tab">
+                        <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Cantidad:    {{loc.Almacenamiento}}</a></h5>
+                      </div>
+                    
+                      
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+  
+      </form>
+    </div>

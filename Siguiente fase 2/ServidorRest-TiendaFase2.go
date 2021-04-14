@@ -76,6 +76,7 @@ type Productos struct{
 	PrecioProducto      float64 `json:"Precio,omitempty"`
 	CantidadProducto    int     `json:"Cantidad,omitempty"`
 	ImagenProducto      string  `json:"Imagen,omitempty"`
+	AlmacenProducto     string  `json:"Almacenamiento,omitempty"`
 }
 
 
@@ -98,6 +99,27 @@ type PedirProductos struct{
 }
 
 
+var miembro []Cuentas
+
+type Cuentas struct{
+	USUARIOS  []Usuarios  `json:"Usuarios,omitempty"`
+}
+
+type Usuarios struct{
+	Dpi        int       `json:"Dpi,omitempty"`
+	Nombre     string    `json:"Nombre,omitempty"`
+	Correo     string    `json:"Correo,omitempty"`
+	Password   string    `json:"Password,omitempty"`
+	Cuenta     string    `json:"Cuenta,omitempty"`
+
+}
+
+var suprimir []EliminarUsuario
+
+type EliminarUsuario struct {
+	NombreUsuario       string `json:"Nombre,omitempty"`
+	PasswordUsuario     string `json:"Password,omitempty"`
+}
 
 
 
@@ -196,6 +218,91 @@ func ListadoDeTiendasEndpoint(w http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(w).Encode(cargartienda)
 
 }
+
+
+
+func ListadoDeUsuariosEndpoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(miembro)
+
+}
+
+func ObtenerTipoCuentaEndpoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	params := mux.Vars(req)
+	for _, item := range miembro {
+		for z := 0; z < len(item.USUARIOS); z++ {
+			if item.USUARIOS[z].Cuenta == params["Cuenta"] {
+				json.NewEncoder(w).Encode(item.USUARIOS[z])
+				return
+			}
+
+		}
+	}
+	json.NewEncoder(w).Encode(&Cuentas{})
+}
+
+func CrearUsuarioEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var avatar Cuentas
+	reqBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Insertar dato valido")
+	}
+
+	json.Unmarshal(reqBody, &avatar)
+
+	for z := 0; z < len(avatar.USUARIOS); z++ {
+		_ = json.NewDecoder(req.Body).Decode(&avatar)
+		
+	}
+	miembro = append(miembro, avatar)
+	json.NewEncoder(w).Encode(avatar)
+
+}
+
+func EliminarUsuarioEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	//params := mux.Vars(req)
+	var elimus EliminarUsuario
+	json.NewDecoder(req.Body).Decode(&elimus)
+
+	//tienda.ID = params["Id nuevo"]
+	suprimir = append(suprimir, elimus)
+	//json.NewEncoder(w).Encode(tiendaespecifica)
+
+	for _, item := range miembro {
+		z := 0
+
+		for  z < len(item.USUARIOS) {
+
+			if item.USUARIOS[z].Nombre == elimus.NombreUsuario{
+
+				if item.USUARIOS[z].Password == elimus.PasswordUsuario{
+
+					item.USUARIOS = append(item.USUARIOS[:z], item.USUARIOS[z+1:]...)
+
+					break
+				}
+
+
+				break
+			}
+
+			z = z + 1
+
+
+		}
+
+	}
+
+	json.NewEncoder(w).Encode(miembro)
+
+}
+
+
+
+
 
 func ListadoDeInventarioEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -656,6 +763,19 @@ func main() {
 	router.HandleFunc("/cargarinventario", ListadoDeInventarioEndpoint).Methods("GET")
 
 	router.HandleFunc("/cargarpedido", ListadoDePedidoEndpoint).Methods("GET")
+
+
+
+	router.HandleFunc("/cargarusuarios", ListadoDeUsuariosEndpoint).Methods("GET")
+
+	router.HandleFunc("/cargarusuarios/{Cuenta}", ObtenerTipoCuentaEndpoint).Methods("GET")
+
+	router.HandleFunc("/nuevoUsuarios", CrearUsuarioEndPoint).Methods("POST")
+
+	router.HandleFunc("/EliminarUsuario", EliminarUsuarioEndPoint).Methods("POST")
+
+
+
 
 	router.HandleFunc("/cargartienda/indice/{Indice}", ObtenerIndiceTiendaEndpoint).Methods("GET")
 	router.HandleFunc("/cargartienda/tipotienda/{Nombre}", ObtenerNombreTipoTiendaEndpoint).Methods("GET")
