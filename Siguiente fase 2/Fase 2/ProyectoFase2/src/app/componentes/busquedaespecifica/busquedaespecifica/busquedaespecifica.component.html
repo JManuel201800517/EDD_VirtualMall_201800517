@@ -60,7 +60,11 @@
             <div class="form-group row">
               
               <div *ngIf="buscar">
-                  {{buscar.Datos}}
+                <img src="{{buscar.Logo}}"  width="150" height="100">
+                <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Nombre: {{buscar.Nombre}}</a></h5>
+                <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Descripcion: {{buscar.Descripcion}}</a></h5>
+                <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Contacto: {{buscar.Contacto}}</a></h5>
+                <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Calificacion: {{buscar.Calificacion}}</a></h5>
                 <!--<div *ngFor="let indi of cargarinventario.Inventarios"> 
                   ------------------------------------------------------------------
                   <div class="card-header" role="tab">

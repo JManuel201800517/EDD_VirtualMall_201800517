@@ -19,6 +19,7 @@ import { BusquedaespecificaComponent } from './componentes/busquedaespecifica/bu
 import { EliminarespecificaComponent } from './componentes/eliminarespecifica/eliminarespecifica/eliminarespecifica.component';
 import { CreacionUsuarioComponent } from './componentes/creacion-usuario/creacion-usuario.component';
 import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/eliminacion-usuario.component';
+import { LoginComponent } from './componentes/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/e
     BusquedaespecificaComponent,
     EliminarespecificaComponent,
     CreacionUsuarioComponent,
-    EliminacionUsuarioComponent
+    EliminacionUsuarioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

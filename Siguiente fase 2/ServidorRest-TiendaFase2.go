@@ -122,6 +122,14 @@ type EliminarUsuario struct {
 }
 
 
+var ingresar []Sesion
+
+type Sesion struct {
+	NombreUsuario       string `json:"Nombre,omitempty"`
+	PasswordUsuario     string `json:"Password,omitempty"`
+}
+
+
 
 // no usar esta seccion encacillada{
 
@@ -678,6 +686,45 @@ func PedidosEndPoint(w http.ResponseWriter, req *http.Request){
 }
 
 
+func InicioSesionEndPoint(w http.ResponseWriter, req *http.Request){
+
+	w.Header().Set("Content-Type", "application/json")
+	//params := mux.Vars(req)
+	var usuario Sesion
+	json.NewDecoder(req.Body).Decode(&usuario)
+
+	//tienda.ID = params["Id nuevo"]
+	ingresar = append(ingresar, usuario)
+	//json.NewEncoder(w).Encode(tiendaespecifica)
+
+	for _, item := range miembro {
+		for z := 0; z < len(item.USUARIOS); z++ {
+
+			if item.USUARIOS[z].Nombre == usuario.NombreUsuario {
+
+				if item.USUARIOS[z].Password == usuario.PasswordUsuario {
+
+					json.NewEncoder(w).Encode(item.USUARIOS[z])
+					//z = len(item.DATOSINFO)
+					//j = len(item.DATOSINFO[z].DEPARTINFO)
+					//i = len(item.DATOSINFO[z].DEPARTINFO[j].NOTIENDA)
+
+					return
+				}
+
+				return
+			}
+
+		}
+
+	}
+
+	json.NewEncoder(w).Encode(&Cuentas{})
+	
+	
+}
+
+
 
 // no usar esta seccion encacillada{
 
@@ -773,6 +820,8 @@ func main() {
 	router.HandleFunc("/nuevoUsuarios", CrearUsuarioEndPoint).Methods("POST")
 
 	router.HandleFunc("/EliminarUsuario", EliminarUsuarioEndPoint).Methods("POST")
+
+	router.HandleFunc("/InicioSesion", InicioSesionEndPoint).Methods("POST")
 
 
 

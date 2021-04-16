@@ -6,6 +6,7 @@ import { Tienda } from "../../models/tienda/tienda";
 import { Datos } from 'src/app/models/datos/datos';
 import { Eliminarespecifico } from 'src/app/models/eliminarespecifico/eliminarespecifico';
 import { Buscarespecifico } from 'src/app/models/buscarespecifico/buscarespecifico';
+import { Info } from 'src/app/models/info/info';
 
 @Injectable({
   providedIn: 'root'
@@ -34,22 +35,22 @@ export class SubirtiendaService {
     return this.http.post<Eliminarespecifico>(baseURL+"Eliminar", eliminar, httpOptions)
   }
 
-  buscarTienda(buscar: any):Observable<Tienda>{
+  buscarTienda(buscar: string):Observable<Info>{
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       }),
     };
-    return this.http.post<Tienda>(baseURL+"TiendaEspecifica", {buscar: buscar}, httpOptions)
+    return this.http.post<Info>(baseURL+"TiendaEspecifica", buscar, httpOptions)
   }
 
-  //obtenerTienda():Observable<Tienda[]>{
+  //obtenerTienda():Observable<Info[]>{
     //const httpOptions = {
       //headers: new HttpHeaders({
         //'Content-Type': 'application/json',
       //}),
     //};
-    //return this.http.get<Tienda[]>(baseURL + 'TiendaEspecifica', httpOptions);
+    //return this.http.get<Info[]>(baseURL + 'TiendaEspecifica', httpOptions);
   //}
 
   getListaTiendas():Observable<Tienda[]>{

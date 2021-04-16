@@ -6,6 +6,10 @@ import { FormControl } from '@angular/forms';
 import { SubirtiendaService } from 'src/app/services/tienda/subirtienda.service';
 import { Tienda } from 'src/app/models/tienda/tienda';
 import { Buscarespecifico } from 'src/app/models/buscarespecifico/buscarespecifico';
+import { Info } from 'src/app/models/info/info';
+import { Guardado } from "src/app/models/Guardado/guardado";
+import { ThisReceiver } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-busquedaespecifica',
@@ -21,6 +25,8 @@ export class BusquedaespecificaComponent implements OnInit {
 
   buscar: any
 
+  //algo!: Guardado;
+
   constructor(private busquedaService: SubirtiendaService) { }
 
   ngOnInit(): void {
@@ -29,16 +35,18 @@ export class BusquedaespecificaComponent implements OnInit {
   subirBusqueda(){
     console.log("Funciona muy bien")
     //console.log(this.inventario.value)
-    this.busquedaService.deleteTienda(this.busqueda.value).subscribe((res:any)=>{
+    this.busquedaService.buscarTienda(this.busqueda.value).subscribe((res:any)=>{
       this.mostrarMensaje=true
       this.busqueda.setValue("")
-      console.log("Inventario Cargado")
+      console.log("Inventario Buscado")
       console.log(res)
 
       this.buscar = res
-      console.log(this.buscar)
+      //console.log(this.buscar)
 
-    }, (err)=>{
+      //this.algo = this.buscar
+
+    },(err)=>{
       this.mostrarMensajeError=true
     })
 

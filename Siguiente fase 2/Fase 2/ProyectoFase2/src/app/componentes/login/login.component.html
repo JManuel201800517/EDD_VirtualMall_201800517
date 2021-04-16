@@ -1,0 +1,108 @@
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Inicio de Sesion exitosa
+            <button type="button" (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="mostrarMensajeError" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se pudo iniciar sesion
+            <button type="button"  (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/superball.png&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Login</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Inicio de Sesion</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="user">
+      <div class="form-group row">
+        <div class="col-sm-6">
+            <input [formControl]="usuario" class="form-control form-control-user" type="text" id="inputNomb"
+                placeholder="Usuario" name="inputNomb">
+        </div>
+        <div class="col-sm-6">
+            <input [formControl]="password" class="form-control form-control-user" type="text" id="inputPass"
+                placeholder="Password" name="inputPass">
+        </div>
+      </div>
+          <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <input [formControl]="sesion" class="form-control form-control-user" type="text" id="inputNomb"
+                    placeholder="" name="inputNomb">
+            </div>
+              <div class="col-sm-6">
+                  <button (click)="InicioSesion()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   Inicio de Sesion
+                    
+                  </button>
+              </div>
+          </div>
+      </form>
+    </div>
+
+    <div class="container">
+        <form class="user">
+
+    <h5 class="text-dark mb-4">Escoger la opcion deseada</h5>
+
+    <div *ngIf="CuentaAdmin" class="row justify-content-around">
+        <div class="col-4 offset-1 col-sm-2">
+            <h5>Links</h5>
+            <ul class="list-unstyled">
+                <li><a href="/vistaCalendario">Vista Calendarios-Pedidos</a></li>
+                <li><a href="/cargarPedidos">Cargar Pedido</a></li>
+                <li><a href="/cargarInventario">Cargar Inventario</a></li>
+                <li><a href="/cargarTiendas">Cargar Tienda</a></li>
+                <li><a href="/busquedaEspecifica">Busqueda Especifica</a></li>
+                <li><a href="/eliminarEspecifica">Eliminacion Especifica</a></li>
+                <li><a href="/CreacionUsuario">Crear Nuevo Usuario</a></li>
+                <li><a href="/EliminarUsuario">Eliminar Usuario</a></li>
+                <!--<li><a href="/prueba">Prueba</a></li>
+                <li><a href="http://localhost:3000/arbolBinario" target="_blank">Ver Árbol de Estudiantes</a></li>-->
+            </ul>
+        </div>
+    </div>
+      <div *ngIf="CuentaUsuario" class="row justify-content-around">
+        <div class="col-4 offset-1 col-sm-2">
+            <h5>Links</h5>
+            <ul class="list-unstyled">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/tiendas">Tiendas</a></li>
+                <li><a href="/inventario">Inventario</a></li>
+                <li><a href="/carritoDeCompras">Carrito de Compras</a></li>
+                <!--<li><a href="/prueba">Prueba</a></li>
+                <li><a href="http://localhost:3000/arbolBinario" target="_blank">Ver Árbol de Estudiantes</a></li>-->
+            </ul>
+        </div>
+      </div>
+    </form>
+</div>
+    

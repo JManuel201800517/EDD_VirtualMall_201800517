@@ -14,6 +14,7 @@ import { BusquedaespecificaComponent } from './componentes/busquedaespecifica/bu
 import { EliminarespecificaComponent } from './componentes/eliminarespecifica/eliminarespecifica/eliminarespecifica.component';
 import { CreacionUsuarioComponent } from './componentes/creacion-usuario/creacion-usuario.component';
 import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/eliminacion-usuario.component';
+import { LoginComponent } from "./componentes/login/login.component";
 
 const routes: Routes = [
   {
@@ -67,6 +68,10 @@ const routes: Routes = [
   {
     path: "EliminarUsuario",
     component: EliminacionUsuarioComponent,
+  },
+  {
+    path: "Login",
+    component: LoginComponent,
   }
 ];
 

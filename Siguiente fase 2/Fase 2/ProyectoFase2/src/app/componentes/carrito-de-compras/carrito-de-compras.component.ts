@@ -28,6 +28,8 @@ export class CarritoDeComprasComponent implements OnInit {
 
   numeroCodigos: number[]=[]
 
+  pedir: Pedidos[]=[]
+
   Fecha = new FormControl('')
   Tienda = new FormControl('')
   Departamento = new FormControl('')
@@ -83,6 +85,22 @@ export class CarritoDeComprasComponent implements OnInit {
   }
 
   crearPedido(){
+    console.log("Funciona muy bien")
+    //console.log(this.inventario.value)
+
+    for(var x = 0; x < this.pedir.length; x++) {
+
+      this.inventarioService.postCarritoDeCompras(this.pedir[x]).subscribe((res:any)=>{
+        this.mostrarMensaje=true
+        this.Codigo.setValue("")
+        console.log("Pedido Subido")
+        console.log(res)
+  
+      }, (err)=>{
+        this.mostrarMensajeError=true
+      })
+
+    }
 
   }
 
@@ -113,14 +131,60 @@ export class CarritoDeComprasComponent implements OnInit {
     }
 
     console.log(this.numeroCodigos)
-    console.log(infopedido)
-    console.log(pedido)
+    //console.log(infopedido)
+    //console.log(pedido)
+
+    this.pedir[this.numero] = pedido
 
     this.numero = this.numero + 1
 
+    console.log(this.pedir)
+
+    this.Codigo.setValue("")
+
+
   }
+  
 
   eliminarProducto(){
+    const productos: Pedirproductos={
+      Codigo: Number(this.CodigoElim.value),
+    }
+
+
+    const infopedido: Infopedido={
+      Fecha: this.Fecha.value,
+      Tienda: this.Tienda.value,
+      Departamento: this.Departamento.value,
+      Calificacion: Number(this.Calificacion.value),
+      Productos:[productos]
+    }
+
+    const pedido: Pedidos={
+      Pedidos: [infopedido]
+    }
+
+    for(var x = 0; x < this.pedir.length; x++){
+
+      console.log(this.pedir[x])
+      console.log(pedido)
+
+      if(this.pedir[x].Pedidos[0].Productos[0].Codigo == pedido.Pedidos[0].Productos[0].Codigo){
+        this.pedir[x].Pedidos[0].Productos[0].Codigo == null
+        this.pedir[x].Pedidos[0].Calificacion == null
+        this.pedir[x].Pedidos[0].Departamento == null
+        this.pedir[x].Pedidos[0].Fecha == null
+        this.pedir[x].Pedidos[0].Tienda == null
+
+      }else{
+        console.log("Continuar...")
+      }
+    }
+
+    console.log(this.pedir)
+
+
+
 
   }
 
