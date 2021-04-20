@@ -36,6 +36,7 @@ export class CarritoDeComprasComponent implements OnInit {
   Calificacion = new FormControl('')
   Codigo = new FormControl('')
   CodigoElim = new FormControl('')
+  Dpi = new FormControl("")
 
   numero = 0;
 
@@ -123,6 +124,7 @@ export class CarritoDeComprasComponent implements OnInit {
       Tienda: this.Tienda.value,
       Departamento: this.Departamento.value,
       Calificacion: Number(this.Calificacion.value),
+      Cliente: Number(this.Dpi.value),
       Productos:[productos]
     }
 
@@ -157,6 +159,7 @@ export class CarritoDeComprasComponent implements OnInit {
       Tienda: this.Tienda.value,
       Departamento: this.Departamento.value,
       Calificacion: Number(this.Calificacion.value),
+      Cliente: Number(this.Dpi.value),
       Productos:[productos]
     }
 
@@ -173,6 +176,7 @@ export class CarritoDeComprasComponent implements OnInit {
         this.pedir[x].Pedidos[0].Productos[0].Codigo == null
         this.pedir[x].Pedidos[0].Calificacion == null
         this.pedir[x].Pedidos[0].Departamento == null
+        this.pedir[x].Pedidos[0].Cliente == null
         this.pedir[x].Pedidos[0].Fecha == null
         this.pedir[x].Pedidos[0].Tienda == null
 

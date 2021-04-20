@@ -15,6 +15,8 @@ import { EliminarespecificaComponent } from './componentes/eliminarespecifica/el
 import { CreacionUsuarioComponent } from './componentes/creacion-usuario/creacion-usuario.component';
 import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/eliminacion-usuario.component';
 import { LoginComponent } from "./componentes/login/login.component";
+import { ReportesComponent } from './componentes/reportes/reportes.component';
+import { GrafoComponent } from './componentes/grafo/grafo.component';
 
 const routes: Routes = [
   {
@@ -72,6 +74,14 @@ const routes: Routes = [
   {
     path: "Login",
     component: LoginComponent,
+  },
+  {
+    path: "Reportes",
+    component: ReportesComponent
+  },
+  {
+    path: "Grafo",
+    component: GrafoComponent
   }
 ];
 

@@ -91,6 +91,7 @@ type InfoPedido struct{
 	TiendaPedido        string            `json:"Tienda,omitempty"`
 	DepartamentoPedido  string            `json:"Departamento,omitempty"`
 	CalificacionPedido  int               `json:"Calificacion,omitempty"`
+	ClientePedido       int               `json:"Cliente,omitempty"` 
 	ProductosPedido     []PedirProductos  `json:"Productos,omitempty"`
 }
 
@@ -129,6 +130,24 @@ type Sesion struct {
 	PasswordUsuario     string `json:"Password,omitempty"`
 }
 
+
+var caminografo []Grafo
+
+type Grafo struct {
+	Nodos          []Nodo  `json:"Nodos,omitempty"`
+	PosicionRobot  string  `json:"PosicionInicialRobot,omitempty"`
+	Entrega        string  `json:"Entrega,omitempty"`
+}
+
+type Nodo struct {
+	Nombre    string     `json:"Nombre,omitempty"`
+	Enlace    []Enlaces  `json:"Enlaces,omitempty"`
+}
+
+type Enlaces struct {
+	Nombre     string   `json:"Nombre,omitempty"`
+	Distancia  int      `json:"Distancia,omitempty"`
+}
 
 
 // no usar esta seccion encacillada{
@@ -305,6 +324,36 @@ func EliminarUsuarioEndPoint(w http.ResponseWriter, req *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(miembro)
+
+}
+
+
+func SubirGrafoEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var robot Grafo
+	reqBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Insertar dato valido")
+	}
+
+	json.Unmarshal(reqBody, &robot)
+
+	for z := 0; z < len(robot.Nodos); z++ {
+		for j := 0; j < len(robot.Nodos[z].Enlace); j++ {
+				_ = json.NewDecoder(req.Body).Decode(&robot)
+				//tienda.DATOSINFO[z].DEPARTINFO[j].NOTIENDA[i].ID = strconv.Itoa(len(cargartienda) + 1)
+
+		}
+	}
+	caminografo = append(caminografo, robot)
+	json.NewEncoder(w).Encode(robot)
+
+}
+
+
+func DatosGrafoEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(caminografo)
 
 }
 
@@ -822,6 +871,12 @@ func main() {
 	router.HandleFunc("/EliminarUsuario", EliminarUsuarioEndPoint).Methods("POST")
 
 	router.HandleFunc("/InicioSesion", InicioSesionEndPoint).Methods("POST")
+
+
+	router.HandleFunc("/subirGrafo", SubirGrafoEndPoint).Methods("POST")
+
+	router.HandleFunc("/verDatosGrafo", DatosGrafoEndPoint).Methods("GET")
+
 
 
 

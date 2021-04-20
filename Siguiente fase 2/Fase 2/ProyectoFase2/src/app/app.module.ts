@@ -20,6 +20,8 @@ import { EliminarespecificaComponent } from './componentes/eliminarespecifica/el
 import { CreacionUsuarioComponent } from './componentes/creacion-usuario/creacion-usuario.component';
 import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/eliminacion-usuario.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { ReportesComponent } from './componentes/reportes/reportes.component';
+import { GrafoComponent } from './componentes/grafo/grafo.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { LoginComponent } from './componentes/login/login.component';
     EliminarespecificaComponent,
     CreacionUsuarioComponent,
     EliminacionUsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    ReportesComponent,
+    GrafoComponent
   ],
   imports: [
     BrowserModule,
