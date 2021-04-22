@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	//"io"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -846,6 +846,451 @@ func Grafica(w http.ResponseWriter, req *http.Request) {
 
 // }no usar esta seccion encacillada
 
+func ArbolSinCifrar() string{
+
+	//var cuenta Cuenta
+
+
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	for _, nodo := range miembro{
+
+		z := 0
+		for z < len(nodo.USUARIOS){
+			grafo+=`Nodo`+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+`[shape=record label=<`
+	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	        grafo+="<tr><td colspan=\"2\">Dpi: "+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "</td><td colspan=\"2\">Nombre: "+nodo.USUARIOS[z].Nombre+ " </td></tr>"
+	        grafo+="<tr><td>Correo: "+nodo.USUARIOS[z].Correo+"</td><td>Password: "+nodo.USUARIOS[z].Password+"</td></tr>"
+	        grafo+="<tr><td colspan=\"2\">Cuenta: "+nodo.USUARIOS[z].Cuenta+"</td></tr></table>"
+	        grafo+=`
+	        >];
+	        `	
+
+			if z <= 3{
+
+				if z == 3{
+					grafo += "Xi->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+				}else{
+					grafo += "Xi->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "Xi->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}
+				
+
+			}else if (z>= 4 && z <= 23){
+
+				if z == 23{
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+				}else if (z >= 4 && z <= 7){
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[0].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[0].Dpi), 10)+"->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 8 && z <= 11){
+					grafo += "X0->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X0->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 12 && z <= 15){
+					grafo += "X1->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X1->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 16 && z <= 19){
+					grafo += "X2->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X2->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 20 && z <= 22){
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else{
+					fmt.Println("Funciona Bien")
+				}
+
+				//grafo += "Fin->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+			}else{
+				grafo += "Inicio->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "->Xi;"
+
+			}
+
+			
+			z = z + 1
+		}
+
+
+	}
+
+	//contador=1
+	//grafo=recorrerArbol("Nodo0", nodo, grafo)
+	//grafo += "{rank=same Nodo0 X Nodo1}"
+	//grafo += "Nodo1->Nodo0;\n"
+	grafo+="}"
+	return grafo
+
+}
+
+
+func getArbolSinCifrar(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(ArbolSinCifrar())
+    err := ioutil.WriteFile("arbolSinCifrar.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearArbolSinCifrar.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./arbolSinCifrar.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+
+func ArbolCifrarSuave() string{
+
+	//var cuenta Cuenta
+
+
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	for _, nodo := range miembro{
+
+		z := 0
+		for z < len(nodo.USUARIOS){
+			grafo+=`Nodo`+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+`[shape=record label=<`
+	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	        grafo+="<tr><td colspan=\"2\">Dpi: "+****************+ "</td><td colspan=\"2\">Nombre: "+nodo.USUARIOS[z].Nombre+ " </td></tr>"
+	        grafo+="<tr><td>Correo: "+*****************+"</td><td>Password: "+******************+"</td></tr>"
+	        grafo+="<tr><td colspan=\"2\">Cuenta: "+nodo.USUARIOS[z].Cuenta+"</td></tr></table>"
+	        grafo+=`
+	        >];
+	        `	
+
+			if z <= 3{
+
+				if z == 3{
+					grafo += "Xi->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+				}else{
+					grafo += "Xi->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "Xi->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}
+				
+
+			}else if (z>= 4 && z <= 23){
+
+				if z == 23{
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+				}else if (z >= 4 && z <= 7){
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[0].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[0].Dpi), 10)+"->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 8 && z <= 11){
+					grafo += "X0->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X0->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 12 && z <= 15){
+					grafo += "X1->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X1->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 16 && z <= 19){
+					grafo += "X2->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X2->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 20 && z <= 22){
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else{
+					fmt.Println("Funciona Bien")
+				}
+
+				//grafo += "Fin->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+			}else{
+				grafo += "Inicio->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "->Xi;"
+
+			}
+
+			
+			z = z + 1
+		}
+
+
+	}
+
+	//contador=1
+	//grafo=recorrerArbol("Nodo0", nodo, grafo)
+	//grafo += "{rank=same Nodo0 X Nodo1}"
+	//grafo += "Nodo1->Nodo0;\n"
+	grafo+="}"
+	return grafo
+
+}
+
+
+func getArbolCifrarSuave(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(ArbolCifrarSuave())
+    err := ioutil.WriteFile("arbolCifrarSuave.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearArbolCifrarSuave.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./arbolCifrarSuave.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+
+func ArbolCifrar() string{
+
+	//var cuenta Cuenta
+
+
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	for _, nodo := range miembro{
+
+		z := 0
+		for z < len(nodo.USUARIOS){
+			grafo+=`Nodo`+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+`[shape=record label=<`
+	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	        grafo+="<tr><td colspan=\"2\">Dpi: "+****************+ "</td><td colspan=\"2\">Nombre: "+*****************+ " </td></tr>"
+	        grafo+="<tr><td>Correo: "+*****************+"</td><td>Password: "+******************+"</td></tr>"
+	        grafo+="<tr><td colspan=\"2\">Cuenta: "+****************+"</td></tr></table>"
+	        grafo+=`
+	        >];
+	        `	
+
+			if z <= 3{
+
+				if z == 3{
+					grafo += "Xi->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+				}else{
+					grafo += "Xi->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "Xi->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}
+				
+
+			}else if (z>= 4 && z <= 23){
+
+				if z == 23{
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+				}else if (z >= 4 && z <= 7){
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[0].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[0].Dpi), 10)+"->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 8 && z <= 11){
+					grafo += "X0->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X0->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 12 && z <= 15){
+					grafo += "X1->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X1->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 16 && z <= 19){
+					grafo += "X2->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				    grafo += "X2->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else if (z >= 20 && z <= 22){
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+					grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[3].Dpi), 10)+"->X"+strconv.FormatInt(int64(z), 10)+";"
+
+				}else{
+					fmt.Println("Funciona Bien")
+				}
+
+				//grafo += "Fin->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+
+			}else{
+				grafo += "Inicio->Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "[color=grey arrowhead=none];"
+				grafo += "Nodo"+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+ "->Xi;"
+
+			}
+
+			
+			z = z + 1
+		}
+
+
+	}
+
+	//contador=1
+	//grafo=recorrerArbol("Nodo0", nodo, grafo)
+	//grafo += "{rank=same Nodo0 X Nodo1}"
+	//grafo += "Nodo1->Nodo0;\n"
+	grafo+="}"
+	return grafo
+
+}
+
+
+func getArbolCifrar(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(ArbolCifrar())
+    err := ioutil.WriteFile("arbolCifrar.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearArbolCifrar.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./arbolCifrar.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+func GrafoRobot() string{
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	for _, nodo := range caminografo{
+
+		z := 0
+		for z < len(nodo.Nodos){
+
+			if nodo.Nodos[z].Nombre == nodo.PosicionRobot{
+
+				grafo += nodo.Nodos[z].Nombre+"[shape=circle, color=green]"
+
+			}else if nodo.Nodos[z].Nombre == nodo.Entrega{
+
+				grafo += nodo.Nodos[z].Nombre+"[shape=circle, color=yellow]"
+
+			}else{
+
+				grafo += nodo.Nodos[z].Nombre+"[shape=circle]"
+
+			}
+
+			z = z + 1
+ 
+		}
+
+		grafo+=""
+
+		y := 0
+
+		for y < len(nodo.Nodos){
+
+			e := 0
+
+			for e < len(nodo.Nodos[y].Enlace){
+
+				grafo += nodo.Nodos[y].Nombre+"->"+nodo.Nodos[y].Enlace[e].Nombre+"[label="+strconv.FormatInt(int64(nodo.Nodos[y].Enlace[e].Distancia), 10)+"];"
+
+				e = e + 1
+			}
+
+			y = y + 1
+
+		}
+
+		
+	}
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+}
+
+func getGrafoRobot(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(GrafoRobot())
+    err := ioutil.WriteFile("grafoRobot.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearGrafoRobot.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./grafoRobot.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
 
 
 
@@ -901,6 +1346,19 @@ func main() {
 
 	router.HandleFunc("/Inventario", InventarioEndPoint).Methods("POST")
 	router.HandleFunc("/Pedidos", PedidosEndPoint).Methods("POST")
+
+
+	router.HandleFunc("/ArbolSinCifrar", getArbolSinCifrar).Methods("GET")
+	router.HandleFunc("/ArbolCifrarSuave", getArbolCifrarSuave).Methods("GET")
+	router.HandleFunc("/ArbolCifrar", getArbolCifrar).Methods("GET")
+
+	router.HandleFunc("/imgGrafo", getGrafoRobot).Methods("GET")
+
+
+	
+
+
+
 
 
 

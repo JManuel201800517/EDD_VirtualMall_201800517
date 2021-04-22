@@ -20,4 +20,31 @@ export class GraficasService {
     };
     return this.http.post<Grafo>(baseURL+"subirGrafo", grafica, httpOptions)
   }
+
+  getArbolSinCifrar():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'ArbolSinCifrar', httpOptions);
+  }
+
+  getArbolCifrar():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'ArbolCifrar', httpOptions);
+  }
+
+  getArbolCifrarSuave():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'ArbolCifrarSuave', httpOptions);
+  }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GraficasService } from "../../services/graficas/graficas.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-reportes',
@@ -9,21 +11,43 @@ export class ReportesComponent implements OnInit {
 
   mostrarMensaje = false;
   mostrarMensajeError = false;
+  mensajeError = ''
 
-  constructor() { }
+  constructor(private graficaService: GraficasService) { }
 
   ngOnInit(): void {
   }
 
   CuentasSinCifrar(){
+    this.graficaService.getArbolSinCifrar().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
+    })
 
   }
 
   CuentasCifrar(){
+    this.graficaService.getArbolCifrar().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
+    })
 
   }
 
   CuentasCifrarSensible(){
+    this.graficaService.getArbolCifrarSuave().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
+    })
     
   }
 
