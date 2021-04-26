@@ -52,6 +52,13 @@ export class ReportesComponent implements OnInit {
   }
 
   Grafo(){
+    this.graficaService.getGrafo().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
+    })
     
   }
 

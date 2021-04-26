@@ -39,4 +39,13 @@ export class UsuarioService {
     };
     return this.http.post<Eliminarusuario>(baseURL+"EliminarUsuario", elimusuario, httpOptions)
   }
+
+  getListaUsuarios():Observable<Cuentas[]>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<Cuentas[]>(baseURL + 'cargarusuarios', httpOptions);
+  }
 }

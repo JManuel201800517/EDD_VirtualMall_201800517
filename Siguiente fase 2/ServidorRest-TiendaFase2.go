@@ -10,6 +10,10 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"crypto/sha256"
+
+	"github.com/kr/fernet"
+	//"time"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
@@ -980,10 +984,33 @@ func ArbolCifrarSuave() string{
 
 		z := 0
 		for z < len(nodo.USUARIOS){
+
+			encript := [] byte (strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10))
+			hash := sha256.Sum256(encript)
+			rad := string(hash[:])
+
+			k := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok, err := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Nombre), k[0])
+			zet := string(tok[:])
+
+			k1 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok1, err1 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Correo), k1[0])
+			zet1 := string(tok1[:])
+
+			if err != nil {
+		        panic(err)
+	        }
+
+			if err1 != nil {
+		        panic(err1)
+	        }
+
+
+
 			grafo+=`Nodo`+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+`[shape=record label=<`
 	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-	        grafo+="<tr><td colspan=\"2\">Dpi: "+****************+ "</td><td colspan=\"2\">Nombre: "+nodo.USUARIOS[z].Nombre+ " </td></tr>"
-	        grafo+="<tr><td>Correo: "+*****************+"</td><td>Password: "+******************+"</td></tr>"
+	        grafo+="<tr><td colspan=\"2\">Dpi: "+rad+ "</td><td colspan=\"2\">Nombre: "+nodo.USUARIOS[z].Nombre+ " </td></tr>"
+	        grafo+="<tr><td>Correo: "+zet+"</td><td>Password: "+zet1+"</td></tr>"
 	        grafo+="<tr><td colspan=\"2\">Cuenta: "+nodo.USUARIOS[z].Cuenta+"</td></tr></table>"
 	        grafo+=`
 	        >];
@@ -1063,8 +1090,8 @@ func getArbolCifrarSuave(w http.ResponseWriter, req *http.Request){
         log.Fatal(err)
     }
 	//Generamos la imagen
-	app := "crearArbolCifrarSuave.bat"
-	_, err2 := exec.Command(app).Output()
+	loc := "crearArbolCifrarSuave.bat"
+	_, err2 := exec.Command(loc).Output()
 	if err2 != nil {
 		fmt.Println("errrooor :(")
 		fmt.Println(err2)
@@ -1100,11 +1127,50 @@ func ArbolCifrar() string{
 
 		z := 0
 		for z < len(nodo.USUARIOS){
+
+			encript := [] byte (strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10))
+			hash := sha256.Sum256(encript)
+			rad := string(hash[:])
+
+			k := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok, err := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Nombre), k[0])
+			zet := string(tok[:])
+
+			k1 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok1, err1 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Correo), k1[0])
+			zet1 := string(tok1[:])
+
+			k2 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok2, err2 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Password), k2[0])
+			zet2 := string(tok2[:])
+
+			k3 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok3, err3 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Cuenta), k3[0])
+			zet3 := string(tok3[:])
+
+
+	        if err != nil {
+		        panic(err)
+	        }
+
+			if err1 != nil {
+		        panic(err1)
+	        }
+
+			if err2 != nil {
+		        panic(err2)
+	        }
+
+			if err3 != nil {
+		        panic(err3)
+	        }
+
+
 			grafo+=`Nodo`+strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)+`[shape=record label=<`
 	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-	        grafo+="<tr><td colspan=\"2\">Dpi: "+****************+ "</td><td colspan=\"2\">Nombre: "+*****************+ " </td></tr>"
-	        grafo+="<tr><td>Correo: "+*****************+"</td><td>Password: "+******************+"</td></tr>"
-	        grafo+="<tr><td colspan=\"2\">Cuenta: "+****************+"</td></tr></table>"
+	        grafo+="<tr><td colspan=\"2\">Dpi: "+rad+ "</td><td colspan=\"2\">Nombre: "+zet+ " </td></tr>"
+	        grafo+="<tr><td>Correo: "+zet1+"</td><td>Password: "+zet2+"</td></tr>"
+	        grafo+="<tr><td colspan=\"2\">Cuenta: "+zet3+"</td></tr></table>"
 	        grafo+=`
 	        >];
 	        `	
@@ -1178,13 +1244,13 @@ func ArbolCifrar() string{
 func getArbolCifrar(w http.ResponseWriter, req *http.Request){
 
 	data := []byte(ArbolCifrar())
-    err := ioutil.WriteFile("arbolCifrar.dot", data, 0644)
+    err := ioutil.WriteFile("arbolCifrado.dot", data, 0644)
     if err != nil {
         log.Fatal(err)
     }
 	//Generamos la imagen
-	app := "crearArbolCifrar.bat"
-	_, err2 := exec.Command(app).Output()
+	tec := "crearArbolCifrar.bat"
+	_, err2 := exec.Command(tec).Output()
 	if err2 != nil {
 		fmt.Println("errrooor :(")
 		fmt.Println(err2)
@@ -1192,7 +1258,7 @@ func getArbolCifrar(w http.ResponseWriter, req *http.Request){
 		fmt.Println("Todo bien")
 	}
 	//abrimos la imagen
-	img, err3 := os.Open("./arbolCifrar.png")
+	img, err3 := os.Open("./arbolCifrado.png")
     if err3 != nil {
         log.Fatal(err3) // perhaps handle this nicer
     }

@@ -17,6 +17,7 @@ import { EliminacionUsuarioComponent } from './componentes/eliminacion-usuario/e
 import { LoginComponent } from "./componentes/login/login.component";
 import { ReportesComponent } from './componentes/reportes/reportes.component';
 import { GrafoComponent } from './componentes/grafo/grafo.component';
+import { SeguridadComponent } from './componentes/seguridad/seguridad.component';
 
 const routes: Routes = [
   {
@@ -82,6 +83,10 @@ const routes: Routes = [
   {
     path: "Grafo",
     component: GrafoComponent
+  },
+  {
+    path: "Seguridad",
+    component: SeguridadComponent
   }
 ];
 

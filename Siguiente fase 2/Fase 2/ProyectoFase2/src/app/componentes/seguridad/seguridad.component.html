@@ -1,0 +1,118 @@
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Clave Maestra aceptada correctamente
+            <button type="button" (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="mostrarMensajeError" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se acepto la Clave Maestra
+            <button type="button"  (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/masterball.png&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Cargar Clave Maestra</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Ingrese en este apartado la Clave Maestra</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+      <form class="user">
+          <div class="form-group row"><textarea [formControl]="clave" size="100" class="form-control form-control"
+            id="ejemploclave" placeholder="Ingrese en este apartado la Clave Maestra" name="ejemplo_clave"></textarea>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-sm-6">
+                  <button (click)="subirClave()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   Subir Clave Maestra
+                    
+                  </button>
+              </div>
+          </div>
+      </form>
+    </div>
+
+    <div class="container">
+        <form class="user">
+        <div *ngIf="mostrarBoton" class="row justify-content-center">
+            <div class="col-sm-6">
+                <button (click)="mostrarNormal()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                 Mostrar Todo
+                  
+                </button>
+            </div>
+          </div>
+          <div *ngIf="mostrarBoton" class="row justify-content-center">
+            <div class="col-sm-6">
+                <button (click)="mostrarEncriptado()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                 Mostrar Encriptado
+                  
+                </button>
+            </div>
+          </div>
+        </form>
+        
+    </div>
+
+    <div class="container">
+        <form class="user">
+            <div class="form-group row">
+              
+              <div *ngIf="cargarusuario">
+                <div *ngFor="let indi of cargarusuario.Usuarios"> 
+                      -----------------------------------------------------------
+                      <div class="card">
+                        
+                        <div class="card-header" role="tab">
+                          <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Nombre:    {{indi.Nombre}}</a></h5>
+                        </div>
+                        <div class="card-header" role="tab">
+                          <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Dpi:    {{indi.Dpi}}</a></h5>
+                        </div>
+                        <div class="card-header" role="tab">
+                          <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Correo:    {{indi.Correo}}</a></h5>
+                        </div>
+                        <div class="card-header" role="tab">
+                          <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Password:    {{indi.Password}}</a></h5>
+                        </div>
+                        <div class="card-header" role="tab">
+                          <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Cuenta:    {{indi.Cuenta}}</a></h5>
+                        </div>
+                      
+                        
+                      </div>
+                    </div>
+                </div>
+              <!--</div>-->
+            </div>
+    
+        </form>
+      </div>
+
+    
+  
+  

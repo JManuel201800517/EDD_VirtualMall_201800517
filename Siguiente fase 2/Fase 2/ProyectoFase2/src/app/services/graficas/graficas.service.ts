@@ -47,4 +47,13 @@ export class GraficasService {
     };
     return this.http.get<any>(baseURL + 'ArbolCifrarSuave', httpOptions);
   }
+
+  getGrafo():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'imgGrafo', httpOptions);
+  }
 }
