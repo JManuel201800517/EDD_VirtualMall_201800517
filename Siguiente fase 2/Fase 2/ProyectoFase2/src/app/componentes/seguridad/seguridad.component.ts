@@ -77,6 +77,17 @@ export class SeguridadComponent implements OnInit {
   }
 
   mostrarEncriptado(){
+    console.log("Funciona muy bien")
+    //console.log(this.inventario.value)
+
+
+    this.usuarioService.getUsuariosEncriptados().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
+    })
 
   }
 

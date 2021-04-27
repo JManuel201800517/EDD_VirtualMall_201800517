@@ -153,6 +153,17 @@ type Enlaces struct {
 	Distancia  int      `json:"Distancia,omitempty"`
 }
 
+var encript []Encriptado
+
+type Encriptado struct{
+	Dpi        string       `json:"Dpi,omitempty"`
+	Nombre     string    `json:"Nombre,omitempty"`
+	Correo     string    `json:"Correo,omitempty"`
+	Password   string    `json:"Password,omitempty"`
+	Cuenta     string    `json:"Cuenta,omitempty"`
+
+}
+
 
 // no usar esta seccion encacillada{
 
@@ -1357,6 +1368,83 @@ func getGrafoRobot(w http.ResponseWriter, req *http.Request){
 
 }
 
+func getEncriptado(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(EncriptarInfo())
+    err := ioutil.WriteFile("EncriptadoUsuarios.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+}
+
+
+func EncriptarInfo() string{
+	//w.Header().Set("Content-Type", "application/json")
+	//params := mux.Vars(req)
+	//var x string
+	var encp string
+	encp="{"
+	encp+=""
+
+	for _, item := range miembro {
+		for z := 0; z < len(item.USUARIOS); z++ {
+
+			encript := [] byte (strconv.FormatInt(int64(item.USUARIOS[z].Dpi), 10))
+			hash := sha256.Sum256(encript)
+			rad := string(hash[:])
+
+			k := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok, err := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Nombre), k[0])
+			zet := string(tok[:])
+
+			k1 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok1, err1 := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Correo), k1[0])
+			zet1 := string(tok1[:])
+
+			k2 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok2, err2 := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Password), k2[0])
+			zet2 := string(tok2[:])
+
+			k3 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
+	        tok3, err3 := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Cuenta), k3[0])
+			zet3 := string(tok3[:])
+
+
+	        if err != nil {
+		        panic(err)
+	        }
+
+			if err1 != nil {
+		        panic(err1)
+	        }
+
+			if err2 != nil {
+		        panic(err2)
+	        }
+
+			if err3 != nil {
+		        panic(err3)
+	        }
+			encp+="{"
+
+			encp+="Dpi: "+rad+","
+			encp+="Nombre: "+zet+","
+			encp+="Correo: "+zet1+","
+			encp+="Password: "+zet2+","
+			encp+="Cuenta: "+zet3+","
+			encp+="}"
+
+			
+
+
+		}
+		
+	}
+	encp+="}"
+	return encp
+
+}
+
 
 
 
@@ -1417,6 +1505,8 @@ func main() {
 	router.HandleFunc("/ArbolSinCifrar", getArbolSinCifrar).Methods("GET")
 	router.HandleFunc("/ArbolCifrarSuave", getArbolCifrarSuave).Methods("GET")
 	router.HandleFunc("/ArbolCifrar", getArbolCifrar).Methods("GET")
+
+	router.HandleFunc("/Encriptacion", getEncriptado).Methods("GET")
 
 	router.HandleFunc("/imgGrafo", getGrafoRobot).Methods("GET")
 
