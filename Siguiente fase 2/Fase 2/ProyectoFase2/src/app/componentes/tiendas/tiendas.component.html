@@ -46,6 +46,21 @@
                     <div class="card-header" role="tab">
                       <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Calificacion: {{loc.Calificacion}}</a></h5>
                     </div>
+                    <div class="card-header" role="tab">
+                      <!--h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Cantidad:    {{loc.Cantidad}}</a></h5-->
+                    </div>
+                    <div class="form-group row" role="tab">Comentarios de la Tienda
+                      <textarea style = "background-color:darksalmon;" role="tab" [formControl]="nombreInvent" size="100" class="form-control form-control"
+                      id="nombreInvent" placeholder="Ingrese el nombre de la Tienda" name="ejemplo_comentario"></textarea>
+                      <textarea style = "background-color:greenyellow;" role="tab" [formControl]="comentario" size="100" class="form-control form-control"
+                      id="ejemplocomentario" placeholder="Comentario" name="ejemplo_comentario"></textarea>
+
+                      <button (click)="subirComentario()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                        Subir Comentario
+                         
+                       </button>
+                      
+                    </div>
                   
                     
                   </div>

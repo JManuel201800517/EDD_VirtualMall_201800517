@@ -153,6 +153,35 @@ type Enlaces struct {
 	Distancia  int      `json:"Distancia,omitempty"`
 }
 
+
+var Tcomentario []ComentarioTienda
+
+type ComentarioTienda struct{
+	Tienda   string  `json:"Tienda,omitempty"`
+	ComentTienda  []Comentario  `json:"Comentarios,omitempty"`
+}
+
+var Icomentario []ComentarioProducto
+
+type ComentarioProducto struct{
+	Producto  string  `json:"Producto,omitempty"`
+	ComentProducto  []Comentario  `json:"Comentarios,omitempty"`
+
+}
+
+type Comentario struct{
+	Coment string `json:"Comentario,omitempty"`
+	SubComent  []SubComentario `json:"SubComentarios,omitempty"`
+}
+
+type SubComentario struct{
+	Sub string `json:"SubComentario,omitempty"`
+	SubComent  []SubComentario `json:"SubComentarios,omitempty"`
+}
+
+
+
+
 var encript []Encriptado
 
 type Encriptado struct{
@@ -163,6 +192,8 @@ type Encriptado struct{
 	Cuenta     string    `json:"Cuenta,omitempty"`
 
 }
+
+
 
 
 // no usar esta seccion encacillada{
@@ -254,14 +285,71 @@ func Ordenamiento(w http.ResponseWriter, req *http.Request) {
 // } no usar esta seccion encillada
 
 
+func subirComentarioTiendaEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var publicacion ComentarioTienda
+	reqBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Insertar dato valido")
+	}
+
+	json.Unmarshal(reqBody, &publicacion)
+
+	for z := 0; z < len(publicacion.ComentTienda); z++ {
+		for j := 0; j < len(publicacion.ComentTienda[z].SubComent); j++ {
+			_ = json.NewDecoder(req.Body).Decode(&publicacion)
+
+		}
+	}
+	Tcomentario = append(Tcomentario, publicacion)
+	json.NewEncoder(w).Encode(publicacion)
+
+}
+
+func ComentarioTiendaEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Tcomentario)
+
+}
+
+func subirComentarioProductoEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	var publicacion ComentarioProducto
+	reqBody, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Insertar dato valido")
+	}
+
+	json.Unmarshal(reqBody, &publicacion)
+
+	for z := 0; z < len(publicacion.ComentProducto); z++ {
+		for j := 0; j < len(publicacion.ComentProducto[z].SubComent); j++ {
+			for r := 0; r < len(publicacion.ComentProducto[z].SubComent[j].SubComent); r++{
+				_ = json.NewDecoder(req.Body).Decode(&publicacion)
+
+			}
+
+		}
+	}
+	Icomentario = append(Icomentario, publicacion)
+	json.NewEncoder(w).Encode(publicacion)
+
+}
+
+func ComentarioProductoEndPoint(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(Icomentario)
+
+}
+
+
+
 
 func ListadoDeTiendasEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(cargartienda)
 
 }
-
-
 
 func ListadoDeUsuariosEndpoint(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -1446,7 +1534,194 @@ func EncriptarInfo() string{
 }
 
 
+func MerkleUsuarioCrear() string{
 
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	for _, nodo := range miembro{
+
+		z := 0
+		for z < len(nodo.USUARIOS){
+
+			x := strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10)
+			y := nodo.USUARIOS[z].Nombre
+			r := nodo.USUARIOS[z].Correo
+			w := nodo.USUARIOS[z].Password
+			v := nodo.USUARIOS[z].Cuenta
+
+			encript := [] byte (x+","+y+","+r+","+w+","+v)
+			hash := sha256.Sum256(encript)
+			id[z] := string(hash[:])
+
+			grafo+=`N`+ z +` [shape=record label=<`
+	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	        grafo+="<tr><td colspan=\"2\">"+id[z]+ "</td>"
+	        grafo+="<tr><td colspan=\"2\">"+x+ "</td>"
+	        grafo+="<tr><td colspan=\"2\">"+y+"</td>"
+			grafo+="<tr><td colspan=\"2\">"+r+"</td>"
+			grafo+="<tr><td colspan=\"2\">"+w+"</td>"
+	        grafo+="<tr><td colspan=\"2\">"+v+"</td></tr></table>"
+	        grafo+=` >];`	
+
+			z = z + 1
+		}
+
+		if (z % 2 == 0){
+			fmt.Println("Nodos Pares")
+
+		}else{
+			fmt.Println("Nodos Impares")
+
+			j := strconv.FormatInt(int64(z), 10)
+
+			encript := [] byte ("-"+j)
+			hash := sha256.Sum256(encript)
+			id[z] := string(hash[:])
+
+			grafo+=`N`+ j +` [shape=record label=<`
+	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+			grafo+="<tr><td colspan=\"2\">"+id[z]+ "</td>"
+			grafo+="<tr><td colspan=\"2\">-"+j+"</td></tr></table>"
+	        grafo+=` >];`
+
+			z = z + 1
+		}
+
+		a := 0
+		d := 0
+		//r := 30
+		jas := z
+		rar := z
+		cont := 0
+
+		for a < z{
+			encript := [] byte (id[d]+","+id[d+1])
+			hash := sha256.Sum256(encript)
+			id[jas] := string(hash[:])
+
+			jo := strconv.FormatInt(int64(jas), 10)
+
+			pr := strconv.FormatInt(int64(d), 10)
+
+			ps := strconv.FormatInt(int64(d+1), 10)
+
+			grafo+=`N`+ jo +` [shape=record label=<`
+	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	        grafo+="<tr><td colspan=\"2\">"+id[jas]+ "</td>"
+	        grafo+="<tr><td colspan=\"2\">"+id[d]+ "</td>"
+	        grafo+="<tr><td colspan=\"2\">"+id[d+1]+"</td></tr></table>"
+	        grafo+=` >];`
+
+			grafo += "N"+pr+"->N"+jo+";"
+			grafo += "N"+ps+"->N"+jo+";"
+
+			a = a + 2
+			d = d + 2
+			cont = cont + 1
+			jas = jas + 1
+
+			if a >= z{
+				if a == 2{
+					fmt.Println("Paso final")
+
+				}else{
+
+					if (cont % 2 == 0){
+						fmt.Println("Nodos Pares")
+			
+					}else{
+						fmt.Println("Nodos Impares")
+
+						tot := strconv.FormatInt(int64(jas), 10)
+			
+						encript := [] byte ("-"+tot)
+						hash := sha256.Sum256(encript)
+						id[jas] := string(hash[:])
+			
+						grafo+=`N`+ tot +` [shape=record label=<`
+						grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+						grafo+="<tr><td colspan=\"2\">"+id[jas]+ "</td>"
+						grafo+="<tr><td colspan=\"2\">-"+tot+"</td></tr></table>"
+						grafo+=` >];`
+
+						jas = jas + 1
+					}
+
+					d = rar
+					rar = jas
+					z = a
+					a = 0
+					//r = r + 1
+					cont = 0
+					
+				}
+				
+
+			}else{
+				fmt.Println("Sigue la secuencia")
+			}
+
+		}
+
+		encript := [] byte (id[d-2]+","+id[d-1])
+		hash := sha256.Sum256(encript)
+		id[jas] := string(hash[:])
+
+		jos := strconv.FormatInt(int64(jas), 10)
+
+		prr := strconv.FormatInt(int64(d-2), 10)
+
+		pss := strconv.FormatInt(int64(d-1), 10)
+
+		grafo+=`N`+ jos +` [shape=record label=<`
+	    grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	    grafo+="<tr><td colspan=\"2\">"+id[jas]+ "</td>"
+	    grafo+="<tr><td colspan=\"2\">"+id[d-2]+ "</td>"
+	    grafo+="<tr><td colspan=\"2\">"+id[d-1]+"</td></tr></table>"
+	    grafo+=` >];`
+
+		grafo += "N"+prr+"->N"+jo+";"
+		grafo += "N"+pss+"->N"+jo+";"
+
+	}
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+}
+
+func arbolMerkleUsuarioEndPoint(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(MerkleUsuarioCrear())
+    err := ioutil.WriteFile("MerkleUsuario.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearMerkleUsuario.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./MerkleUsuario.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
 
 
 func main() {
@@ -1475,6 +1750,26 @@ func main() {
 	router.HandleFunc("/subirGrafo", SubirGrafoEndPoint).Methods("POST")
 
 	router.HandleFunc("/verDatosGrafo", DatosGrafoEndPoint).Methods("GET")
+
+
+
+	router.HandleFunc("/arbolMerkleUsuario", arbolMerkleUsuarioEndPoint).Methods("GET")
+
+
+
+
+
+
+
+	router.HandleFunc("/subirComentarioTienda", subirComentarioTiendaEndPoint).Methods("POST")
+
+	router.HandleFunc("/verComentarioTienda", ComentarioTiendaEndPoint).Methods("GET")
+
+
+	router.HandleFunc("/subirComentarioProducto", subirComentarioProductoEndPoint).Methods("POST")
+
+	router.HandleFunc("/verComentarioProducto",ComentarioProductoEndPoint).Methods("GET")
+
 
 
 

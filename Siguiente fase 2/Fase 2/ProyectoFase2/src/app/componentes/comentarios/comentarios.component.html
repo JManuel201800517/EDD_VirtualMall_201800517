@@ -1,0 +1,148 @@
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Visualizar Comentarios
+            <button type="button" (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="mostrarMensajeError" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se pudieron visualizar los comentarios
+            <button type="button"  (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/gsball.jpg&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Comentarios</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Presionar el boton de los Comentarios que desea visualizar</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="user">
+          <div class="row justify-content-center">
+              <div class="col-sm-6">
+                  <button (click)="ComentariosTienda()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   Comentarios de Tiendas
+                    
+                  </button>
+                  <button (click)="ComentariosProductos()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                    Comentarios de Productos
+                     
+                   </button>
+              </div>
+          </div>
+          <div *ngIf="Cproducto">
+          <div *ngIf="generalProducto">
+            <div >
+                <h5>Comentarios Productos</h5>
+                <div *ngFor="let indi of generalProducto.Datos">
+                    ---------------------------Productos-----------------------------
+                    <div class="card-header" role="tab">
+                      {{indi.Producto}}
+                    </div>
+                    <div *ngFor="let loc of indi.Comentarios">
+                        C.P.:
+                        <div class="card-header" role="tab">
+                            {{loc.Comentario}}
+                        </div>
+                        <div>
+                        <textarea style = "background-color:lightgreen;" role="tab" [formControl]="Subcomentario" size="100" class="form-control form-control"
+                            id="ejemplosubcomentario" placeholder="SubComentario" name="ejemplo_subcomentario"></textarea>
+
+                           <button (click)="subirSubComentario()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                              Subir SubComentario
+                           
+                        </button>
+                        </div>
+                        <div *ngFor="let zak of loc.SubComentarios">
+                            S.C.:
+                            <div class="card-header" role="tab">
+                                {{zak.SubComentario}}
+                            </div>
+                            <div>
+                                <textarea style = "background-color:pink;" role="tab" [formControl]="Subcomentario2" size="100" class="form-control form-control"
+                                    id="ejemplosubcomentario2" placeholder="SubComentario" name="ejemplo_subcomentario2"></textarea>
+        
+                                   <button (click)="subirSubComentario2()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                                      Subir Respuesta
+                                   
+                                </button>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
+          <div *ngIf="Ctienda">
+          <div *ngIf="comentarioTienda">
+            <div >
+                <h5>Comentarios Tiendas</h5>
+                <div *ngFor="let indi of comentarioTienda.Datos">
+                    ---------------------------Tienda-----------------------------
+                    <div class="card-header" role="tab">
+                      {{indi.Tienda}}
+                    </div>
+                    <div *ngFor="let loc of indi.Comentarios">
+                        C.P.:
+                        <div class="card-header" role="tab">
+                            {{loc.Comentario}}
+                        </div>
+                        <div>
+                            <textarea style = "background-color:lightgreen;" role="tab" [formControl]="Subcomentario3" size="100" class="form-control form-control"
+                                id="ejemplosubcomentario3" placeholder="SubComentario" name="ejemplo_subcomentario3"></textarea>
+    
+                               <button (click)="subirSubComentario3()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                                  Subir SubComentario
+                               
+                            </button>
+                            </div>
+                        <div *ngFor="let zak of loc.SubComentarios">
+                            S.C.:
+                            <div class="card-header" role="tab">
+                                {{zak.SubComentario}}
+                            </div>
+                            <div>
+                                <textarea style = "background-color:pink;" role="tab" [formControl]="Subcomentario4" size="100" class="form-control form-control"
+                                    id="ejemplosubcomentario4" placeholder="SubComentario" name="ejemplo_subcomentario4"></textarea>
+        
+                                   <button (click)="subirSubComentario4()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                                      Subir Respuesta
+                                   
+                                </button>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+

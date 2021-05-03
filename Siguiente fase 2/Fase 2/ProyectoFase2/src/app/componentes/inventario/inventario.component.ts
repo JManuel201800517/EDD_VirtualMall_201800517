@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Comentarios } from 'src/app/models/Comentarios/comentarios';
+import { ComentProducto } from 'src/app/models/ComentProducto/coment-producto';
 import { Inventario } from 'src/app/models/inventario/inventario';
+import { SubComentarios } from 'src/app/models/SubComentarios/sub-comentarios';
 import { InventarioService } from "../../services/inventario/inventario.service";
 
 @Component({
@@ -13,6 +17,10 @@ export class InventarioComponent implements OnInit {
 
   cargarinventario: any
   //tienda: Tienda
+
+  comentario = new FormControl('');
+  subcomentario = new FormControl('');
+  nombreInvent = new FormControl('');
 
   mostrarMensajeError=false
   mostrarMensaje=false
@@ -33,6 +41,7 @@ export class InventarioComponent implements OnInit {
         this.cargarinventario = dataList[contador]
 
 
+
         var data=dataList[contador].Inventarios
         console.log(data)
 
@@ -44,6 +53,7 @@ export class InventarioComponent implements OnInit {
           for(var num=0; num<inf.length; num++){
 
             console.log(this.cargarinventario)
+            //this.nombreInvent.setValue(inf[num].Codigo)
 
           }
 
@@ -63,6 +73,34 @@ export class InventarioComponent implements OnInit {
   desactivarMensaje(){
     this.mostrarMensaje=false
     this.mostrarMensajeError=false
+  }
+
+  subirComentario(){
+
+    const comentar: Comentarios={
+      Comentario:this.comentario.value,
+      SubComentarios:[]
+    }
+
+    const producto: ComentProducto={
+      Producto:this.nombreInvent.value,
+      Comentarios: [comentar]
+    }
+
+    console.log(this.comentario.value)
+    this.inventarioService.postComentarioProducto(producto).subscribe((res:any)=>{
+      this.mostrarMensaje=true
+      this.comentario.setValue("")
+      this.nombreInvent.setValue("")
+      //this.password.setValue("")
+      //this.cui.setValue("")
+      //this.correo.setValue("")
+      console.log("Comentario Subido")
+    },(err)=>{
+      this.mostrarMensajeError=true
+    })
+
+    
   }
 
 

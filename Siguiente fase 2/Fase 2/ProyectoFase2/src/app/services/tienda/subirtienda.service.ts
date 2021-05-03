@@ -7,6 +7,7 @@ import { Datos } from 'src/app/models/datos/datos';
 import { Eliminarespecifico } from 'src/app/models/eliminarespecifico/eliminarespecifico';
 import { Buscarespecifico } from 'src/app/models/buscarespecifico/buscarespecifico';
 import { Info } from 'src/app/models/info/info';
+import { ComentTienda } from 'src/app/models/ComentTienda/coment-tienda';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,25 @@ export class SubirtiendaService {
   constructor(private http: HttpClient) { 
     
   }
+
+  postComentarioTienda(tienda: ComentTienda):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+    };
+    return this.http.post<ComentTienda>(baseURL+"subirComentarioTienda", tienda, httpOptions)
+  }
+
+  getComentariosTienda():Observable<ComentTienda[]>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<ComentTienda[]>(baseURL + 'verComentarioTienda', httpOptions);
+  }
+
 
   postTienda(tienda: any):Observable<Tienda>{
     const httpOptions = {

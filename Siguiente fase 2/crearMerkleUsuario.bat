@@ -1,0 +1,1 @@
+"C:\Program Files\Graphviz\bin\dot.exe" -Tpng MerkleUsuario.dot -o MerkleUsuario.png

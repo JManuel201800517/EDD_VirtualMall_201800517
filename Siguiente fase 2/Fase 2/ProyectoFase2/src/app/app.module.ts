@@ -23,6 +23,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { ReportesComponent } from './componentes/reportes/reportes.component';
 import { GrafoComponent } from './componentes/grafo/grafo.component';
 import { SeguridadComponent } from './componentes/seguridad/seguridad.component';
+import { ComentariosComponent } from './componentes/comentarios/comentarios.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { SeguridadComponent } from './componentes/seguridad/seguridad.component'
     LoginComponent,
     ReportesComponent,
     GrafoComponent,
-    SeguridadComponent
+    SeguridadComponent,
+    ComentariosComponent
   ],
   imports: [
     BrowserModule,

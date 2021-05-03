@@ -8,6 +8,8 @@ import { Datos } from 'src/app/models/datos/datos';
 import { Observable } from 'rxjs';
 import { Departamentos } from 'src/app/models/departamentos/departamentos';
 import { Info } from 'src/app/models/info/info';
+import { Comentarios } from 'src/app/models/Comentarios/comentarios';
+import { ComentTienda } from 'src/app/models/ComentTienda/coment-tienda';
 
 
 @Component({
@@ -24,6 +26,10 @@ export class TiendasComponent implements OnInit {
 
   cargartienda: any
   //tienda: Tienda
+
+  comentario = new FormControl('');
+  subcomentario = new FormControl('');
+  nombreInvent = new FormControl('');
 
   mostrarMensajeError=false
   mostrarMensaje=false
@@ -83,6 +89,34 @@ export class TiendasComponent implements OnInit {
   desactivarMensaje(){
     this.mostrarMensaje=false
     this.mostrarMensajeError=false
+  }
+
+  subirComentario(){
+
+    const comentar: Comentarios={
+      Comentario:this.comentario.value,
+      SubComentarios:[]
+    }
+
+    const tienda: ComentTienda={
+      Tienda:this.nombreInvent.value,
+      Comentarios: [comentar]
+    }
+
+    console.log(this.comentario.value)
+    this.subirtiendaService.postComentarioTienda(tienda).subscribe((res:any)=>{
+      this.mostrarMensaje=true
+      this.comentario.setValue("")
+      this.nombreInvent.setValue("")
+      //this.password.setValue("")
+      //this.cui.setValue("")
+      //this.correo.setValue("")
+      console.log("Comentario Subido")
+    },(err)=>{
+      this.mostrarMensajeError=true
+    })
+
+    
   }
 
 }
