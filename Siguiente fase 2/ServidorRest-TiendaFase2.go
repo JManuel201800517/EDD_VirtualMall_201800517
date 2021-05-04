@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"strconv"
 	"crypto/sha256"
+	"encoding/hex"
 
 	"github.com/kr/fernet"
 	//"time"
@@ -77,7 +78,7 @@ type Productos struct{
 	NombreProducto      string  `json:"Nombre,omitempty"`
 	CodigoProducto      int     `json:"Codigo,omitempty"`
 	DescripcionProducto string  `json:"Descripcion,omitempty"`
-	PrecioProducto      float64 `json:"Precio,omitempty"`
+	PrecioProducto      int `json:"Precio,omitempty"`
 	CantidadProducto    int     `json:"Cantidad,omitempty"`
 	ImagenProducto      string  `json:"Imagen,omitempty"`
 	AlmacenProducto     string  `json:"Almacenamiento,omitempty"`
@@ -1086,15 +1087,15 @@ func ArbolCifrarSuave() string{
 
 			encript := [] byte (strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10))
 			hash := sha256.Sum256(encript)
-			rad := string(hash[:])
+			rad := hex.EncodeToString(hash[:])
 
 			k := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok, err := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Nombre), k[0])
-			zet := string(tok[:])
+			zet := hex.EncodeToString(tok[:])
 
 			k1 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok1, err1 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Correo), k1[0])
-			zet1 := string(tok1[:])
+			zet1 := hex.EncodeToString(tok1[:])
 
 			if err != nil {
 		        panic(err)
@@ -1229,23 +1230,23 @@ func ArbolCifrar() string{
 
 			encript := [] byte (strconv.FormatInt(int64(nodo.USUARIOS[z].Dpi), 10))
 			hash := sha256.Sum256(encript)
-			rad := string(hash[:])
+			rad := hex.EncodeToString(hash[:])
 
 			k := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok, err := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Nombre), k[0])
-			zet := string(tok[:])
+			zet := hex.EncodeToString(tok[:])
 
 			k1 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok1, err1 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Correo), k1[0])
-			zet1 := string(tok1[:])
+			zet1 := hex.EncodeToString(tok1[:])
 
 			k2 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok2, err2 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Password), k2[0])
-			zet2 := string(tok2[:])
+			zet2 := hex.EncodeToString(tok2[:])
 
 			k3 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok3, err3 := fernet.EncryptAndSign([]byte(nodo.USUARIOS[z].Cuenta), k3[0])
-			zet3 := string(tok3[:])
+			zet3 := hex.EncodeToString(tok3[:])
 
 
 	        if err != nil {
@@ -1479,23 +1480,23 @@ func EncriptarInfo() string{
 
 			encript := [] byte (strconv.FormatInt(int64(item.USUARIOS[z].Dpi), 10))
 			hash := sha256.Sum256(encript)
-			rad := string(hash[:])
+			rad := hex.EncodeToString(hash[:])
 
 			k := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok, err := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Nombre), k[0])
-			zet := string(tok[:])
+			zet := hex.EncodeToString(tok[:])
 
 			k1 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok1, err1 := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Correo), k1[0])
-			zet1 := string(tok1[:])
+			zet1 := hex.EncodeToString(tok1[:])
 
 			k2 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok2, err2 := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Password), k2[0])
-			zet2 := string(tok2[:])
+			zet2 := hex.EncodeToString(tok2[:])
 
 			k3 := fernet.MustDecodeKeys("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=")
 	        tok3, err3 := fernet.EncryptAndSign([]byte(item.USUARIOS[z].Cuenta), k3[0])
-			zet3 := string(tok3[:])
+			zet3 := hex.EncodeToString(tok3[:])
 
 
 	        if err != nil {
@@ -1533,6 +1534,12 @@ func EncriptarInfo() string{
 
 }
 
+//var vec []Vector
+
+//type Vector struct {
+//	id string
+// }
+
 
 func MerkleUsuarioCrear() string{
 
@@ -1540,6 +1547,8 @@ func MerkleUsuarioCrear() string{
 	grafo="digraph G{\n"
 	grafo+="graph [compound=true, labelloc=\"b\"];\n"
 	grafo+=""
+
+	var id [1000]string
 
 	for _, nodo := range miembro{
 
@@ -1554,17 +1563,13 @@ func MerkleUsuarioCrear() string{
 
 			encript := [] byte (x+","+y+","+r+","+w+","+v)
 			hash := sha256.Sum256(encript)
-			id[z] := string(hash[:])
+			id[z] = hex.EncodeToString(hash[:])
 
-			grafo+=`N`+ z +` [shape=record label=<`
-	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-	        grafo+="<tr><td colspan=\"2\">"+id[z]+ "</td>"
-	        grafo+="<tr><td colspan=\"2\">"+x+ "</td>"
-	        grafo+="<tr><td colspan=\"2\">"+y+"</td>"
-			grafo+="<tr><td colspan=\"2\">"+r+"</td>"
-			grafo+="<tr><td colspan=\"2\">"+w+"</td>"
-	        grafo+="<tr><td colspan=\"2\">"+v+"</td></tr></table>"
-	        grafo+=` >];`	
+			fmt.Println(id[z])
+
+			je := strconv.FormatInt(int64(z), 10)
+
+			grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`"];`	
 
 			z = z + 1
 		}
@@ -1579,112 +1584,134 @@ func MerkleUsuarioCrear() string{
 
 			encript := [] byte ("-"+j)
 			hash := sha256.Sum256(encript)
-			id[z] := string(hash[:])
+			id[z] = hex.EncodeToString(hash[:])
 
-			grafo+=`N`+ j +` [shape=record label=<`
-	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-			grafo+="<tr><td colspan=\"2\">"+id[z]+ "</td>"
-			grafo+="<tr><td colspan=\"2\">-"+j+"</td></tr></table>"
-	        grafo+=` >];`
+			grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
 
 			z = z + 1
 		}
 
-		a := 0
+		a := z
 		d := 0
 		//r := 30
 		jas := z
 		rar := z
 		cont := 0
+		rot := 0
+		zo := z
 
-		for a < z{
-			encript := [] byte (id[d]+","+id[d+1])
-			hash := sha256.Sum256(encript)
-			id[jas] := string(hash[:])
+		for rot < 1000{
 
-			jo := strconv.FormatInt(int64(jas), 10)
 
-			pr := strconv.FormatInt(int64(d), 10)
+			zo = a
+			fmt.Println(zo)
+			a = 0
 
-			ps := strconv.FormatInt(int64(d+1), 10)
+			for a < zo {
+				encript := [] byte (id[d]+","+id[d+1])
+				hash := sha256.Sum256(encript)
+				id[jas] = hex.EncodeToString(hash[:])
+	
+				fmt.Println(a)
+	
+				jo := strconv.FormatInt(int64(jas), 10)
+	
+				pr := strconv.FormatInt(int64(d), 10)
+	
+				ps := strconv.FormatInt(int64(d+1), 10)
 
-			grafo+=`N`+ jo +` [shape=record label=<`
-	        grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-	        grafo+="<tr><td colspan=\"2\">"+id[jas]+ "</td>"
-	        grafo+="<tr><td colspan=\"2\">"+id[d]+ "</td>"
-	        grafo+="<tr><td colspan=\"2\">"+id[d+1]+"</td></tr></table>"
-	        grafo+=` >];`
-
-			grafo += "N"+pr+"->N"+jo+";"
-			grafo += "N"+ps+"->N"+jo+";"
-
-			a = a + 2
-			d = d + 2
-			cont = cont + 1
-			jas = jas + 1
-
-			if a >= z{
-				if a == 2{
-					fmt.Println("Paso final")
-
-				}else{
-
-					if (cont % 2 == 0){
-						fmt.Println("Nodos Pares")
-			
+				grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+	
+				grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+				grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+	
+				a = a + 2
+				d = d + 2
+				cont = cont + 1
+				jas = jas + 1
+	
+				if a == zo{
+					fmt.Println(zo, a)
+					if a == 2{
+						fmt.Println("Paso final")
+						rot = 1000 + 1
+	
 					}else{
-						fmt.Println("Nodos Impares")
+	
+						if (cont % 2 == 0){
+							fmt.Println("Nodos Pares")
+							fmt.Println("Otro Nivel")
+							//rot = 1000 + 1
+				
+						}else{
+							fmt.Println("Nodos Impares")
+							fmt.Println("Otro Nivel")
+	
+							tot := strconv.FormatInt(int64(jas), 10)
+				
+							encript := [] byte ("-"+tot)
+							hash := sha256.Sum256(encript)
+							id[jas] = hex.EncodeToString(hash[:])
 
-						tot := strconv.FormatInt(int64(jas), 10)
-			
-						encript := [] byte ("-"+tot)
-						hash := sha256.Sum256(encript)
-						id[jas] := string(hash[:])
-			
-						grafo+=`N`+ tot +` [shape=record label=<`
-						grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-						grafo+="<tr><td colspan=\"2\">"+id[jas]+ "</td>"
-						grafo+="<tr><td colspan=\"2\">-"+tot+"</td></tr></table>"
-						grafo+=` >];`
-
-						jas = jas + 1
+							grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+	
+							jas = jas + 1
+							//rot = 1000 + 1
+						}
+	
+						d = rar
+						rar = jas
+						//r = r + 1
+						cont = 0
+						
 					}
-
-					d = rar
-					rar = jas
-					z = a
-					a = 0
-					//r = r + 1
-					cont = 0
 					
+	
+				}else{
+					fmt.Println("Sigue la secuencia")
 				}
+	
+			}
+
+
+			a = a/2
+
+			if (a % 2 == 0){
+				fmt.Println(a)
 				
 
 			}else{
-				fmt.Println("Sigue la secuencia")
+				a = a + 1
+				fmt.Println(a)
+
 			}
 
 		}
 
-		encript := [] byte (id[d-2]+","+id[d-1])
-		hash := sha256.Sum256(encript)
-		id[jas] := string(hash[:])
 
-		jos := strconv.FormatInt(int64(jas), 10)
+		
 
-		prr := strconv.FormatInt(int64(d-2), 10)
+		//encript := [] byte (id[d-2]+","+id[d-1])
+		//hash := sha256.Sum256(encript)
+		//id[jas] = string(hash[:])
 
-		pss := strconv.FormatInt(int64(d-1), 10)
+		//jos := strconv.FormatInt(int64(jas), 10)
 
-		grafo+=`N`+ jos +` [shape=record label=<`
-	    grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-	    grafo+="<tr><td colspan=\"2\">"+id[jas]+ "</td>"
-	    grafo+="<tr><td colspan=\"2\">"+id[d-2]+ "</td>"
-	    grafo+="<tr><td colspan=\"2\">"+id[d-1]+"</td></tr></table>"
-	    grafo+=` >];`
+		//prr := strconv.FormatInt(int64(jas-2), 10)
 
-		grafo += "N"+prr+"->N"+jo+";"
-		grafo += "N"+pss+"->N"+jo+";"
+		//pss := strconv.FormatInt(int64(jas-1), 10)
+
+		//grafo+=`N`+ jos +` [shape=record label=<`
+	    //grafo+=`<table cellspacing="0" border="0" cellborder="1">`
+	    //grafo+="<tr><td colspan=\"2\">"+"id[jas]"+ "</td>"
+	    //grafo+="<tr><td colspan=\"2\">"+"id[d-2]"+ "</td>"
+	    //grafo+="<tr><td colspan=\"2\">"+"id[d-1]"+"</td></tr></table>"
+	    //grafo+=` >];`
+
+		//grafo += "N"+prr+"->N"+jos+";"
+		//grafo += "N"+pss+"->N"+jos+";"
+
+		fmt.Println("Termino Bien")
 
 	}
 
@@ -1724,6 +1751,601 @@ func arbolMerkleUsuarioEndPoint(w http.ResponseWriter, req *http.Request){
 }
 
 
+func MerkleTiendasCrear() string{
+
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	var id [1000]string
+
+	for _, nodo := range cargartienda{
+
+		for ty := 0; ty < len(nodo.DATOSINFO); ty++{
+
+			yum := 0
+
+			for yum < len(nodo.DATOSINFO[ty].DEPARTINFO){
+
+				z := 0
+				for z < len(nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA){
+		
+					x := nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].ID
+					y := nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].NOMBRE
+					r := nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].DESCRIPCION
+					w := nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].CONTACTO
+					v := strconv.FormatInt(int64(nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].CALIFICACION), 10)
+					q := nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].LOGO
+		
+					encript := [] byte (x+","+y+","+r+","+w+","+v+","+q)
+					hash := sha256.Sum256(encript)
+					id[z] = hex.EncodeToString(hash[:])
+		
+					fmt.Println(id[z])
+		
+					je := strconv.FormatInt(int64(z), 10)
+		
+					grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`&#92;n`+q+`"];`	
+		
+					z = z + 1
+				}
+		
+				if (z % 2 == 0){
+					fmt.Println("Nodos Pares")
+		
+				}else{
+					fmt.Println("Nodos Impares")
+		
+					j := strconv.FormatInt(int64(z), 10)
+		
+					encript := [] byte ("-"+j)
+					hash := sha256.Sum256(encript)
+					id[z] = hex.EncodeToString(hash[:])
+		
+					grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
+		
+					z = z + 1
+				}
+		
+				a := z
+				d := 0
+				//r := 30
+				jas := z
+				rar := z
+				cont := 0
+				rot := 0
+				zo := z
+		
+				for rot < 1000{
+		
+		
+					zo = a
+					fmt.Println(zo)
+					a = 0
+		
+					for a < zo {
+						encript := [] byte (id[d]+","+id[d+1])
+						hash := sha256.Sum256(encript)
+						id[jas] = hex.EncodeToString(hash[:])
+			
+						fmt.Println(a)
+			
+						jo := strconv.FormatInt(int64(jas), 10)
+			
+						pr := strconv.FormatInt(int64(d), 10)
+			
+						ps := strconv.FormatInt(int64(d+1), 10)
+		
+						grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+			
+						grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+						grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+			
+						a = a + 2
+						d = d + 2
+						cont = cont + 1
+						jas = jas + 1
+			
+						if a == zo{
+							fmt.Println(zo, a)
+							if a == 2{
+								fmt.Println("Paso final")
+								rot = 1000 + 1
+			
+							}else{
+			
+								if (cont % 2 == 0){
+									fmt.Println("Nodos Pares")
+									fmt.Println("Otro Nivel")
+									//rot = 1000 + 1
+						
+								}else{
+									fmt.Println("Nodos Impares")
+									fmt.Println("Otro Nivel")
+			
+									tot := strconv.FormatInt(int64(jas), 10)
+						
+									encript := [] byte ("-"+tot)
+									hash := sha256.Sum256(encript)
+									id[jas] = hex.EncodeToString(hash[:])
+		
+									grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+			
+									jas = jas + 1
+									//rot = 1000 + 1
+								}
+			
+								d = rar
+								rar = jas
+								//r = r + 1
+								cont = 0
+								
+							}
+							
+			
+						}else{
+							fmt.Println("Sigue la secuencia")
+						}
+			
+					}
+		
+		
+					a = a/2
+		
+					if (a % 2 == 0){
+						fmt.Println(a)
+						
+		
+					}else{
+						a = a + 1
+						fmt.Println(a)
+		
+					}
+		
+				}
+
+				yum = yum + 1
+			}
+
+		}
+
+		fmt.Println("Termino Bien")
+
+	}
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+}
+
+func arbolMerkleTiendasEndPoint(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(MerkleTiendasCrear())
+    err := ioutil.WriteFile("MerkleTiendas.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearMerkleTiendas.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./MerkleTiendas.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+func MerkleProductosCrear() string{
+
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	var id [1000]string
+
+	for _, nodo := range invent{
+
+		for ty := 0; ty < len(nodo.DatosInventario); ty++{
+
+			z := 0
+			for z < len(nodo.DatosInventario[ty].ProductosInventario){
+	
+				x := nodo.DatosInventario[ty].ProductosInventario[z].NombreProducto
+				y := strconv.FormatInt(int64(nodo.DatosInventario[ty].ProductosInventario[z].CodigoProducto), 10)
+				r := nodo.DatosInventario[ty].ProductosInventario[z].DescripcionProducto
+				w := strconv.FormatInt(int64(nodo.DatosInventario[ty].ProductosInventario[z].PrecioProducto), 10)
+				v := strconv.FormatInt(int64(nodo.DatosInventario[ty].ProductosInventario[z].CantidadProducto), 10)
+				q := nodo.DatosInventario[ty].ProductosInventario[z].ImagenProducto
+				e := nodo.DatosInventario[ty].ProductosInventario[z].AlmacenProducto
+	
+				encript := [] byte (x+","+y+","+r+","+w+","+v+","+q+","+e)
+				hash := sha256.Sum256(encript)
+				id[z] = hex.EncodeToString(hash[:])
+	
+				fmt.Println(id[z])
+	
+				je := strconv.FormatInt(int64(z), 10)
+	
+				grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`&#92;n`+q+`&#92;n`+e+`"];`	
+	
+				z = z + 1
+			}
+	
+			if (z % 2 == 0){
+				fmt.Println("Nodos Pares")
+	
+			}else{
+				fmt.Println("Nodos Impares")
+	
+				j := strconv.FormatInt(int64(z), 10)
+	
+				encript := [] byte ("-"+j)
+				hash := sha256.Sum256(encript)
+				id[z] = hex.EncodeToString(hash[:])
+	
+				grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
+	
+				z = z + 1
+			}
+	
+			a := z
+			d := 0
+			//r := 30
+			jas := z
+			rar := z
+			cont := 0
+			rot := 0
+			zo := z
+	
+			for rot < 1000{
+	
+	
+				zo = a
+				fmt.Println(zo)
+				a = 0
+	
+				for a < zo {
+					encript := [] byte (id[d]+","+id[d+1])
+					hash := sha256.Sum256(encript)
+					id[jas] = hex.EncodeToString(hash[:])
+		
+					fmt.Println(a)
+		
+					jo := strconv.FormatInt(int64(jas), 10)
+		
+					pr := strconv.FormatInt(int64(d), 10)
+		
+					ps := strconv.FormatInt(int64(d+1), 10)
+	
+					grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+		
+					grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+					grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+		
+					a = a + 2
+					d = d + 2
+					cont = cont + 1
+					jas = jas + 1
+		
+					if a == zo{
+						fmt.Println(zo, a)
+						if a == 2{
+							fmt.Println("Paso final")
+							rot = 1000 + 1
+		
+						}else{
+		
+							if (cont % 2 == 0){
+								fmt.Println("Nodos Pares")
+								fmt.Println("Otro Nivel")
+								//rot = 1000 + 1
+					
+							}else{
+								fmt.Println("Nodos Impares")
+								fmt.Println("Otro Nivel")
+		
+								tot := strconv.FormatInt(int64(jas), 10)
+					
+								encript := [] byte ("-"+tot)
+								hash := sha256.Sum256(encript)
+								id[jas] = hex.EncodeToString(hash[:])
+	
+								grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+		
+								jas = jas + 1
+								//rot = 1000 + 1
+							}
+		
+							d = rar
+							rar = jas
+							//r = r + 1
+							cont = 0
+							
+						}
+						
+		
+					}else{
+						fmt.Println("Sigue la secuencia")
+					}
+		
+				}
+	
+	
+				a = a/2
+	
+				if (a % 2 == 0){
+					fmt.Println(a)
+					
+	
+				}else{
+					a = a + 1
+					fmt.Println(a)
+	
+				}
+	
+			}
+
+		}
+
+		fmt.Println("Termino Bien")
+
+	}
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+}
+
+
+func arbolMerkleProductosEndPoint(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(MerkleProductosCrear())
+    err := ioutil.WriteFile("MerkleProductos.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearMerkleProductos.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./MerkleProductos.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+func MerklePedidosCrear() string{
+
+	var grafo string
+	grafo="digraph G{\n"
+	grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	grafo+=""
+
+	var id [1000]string
+
+	for _, nodo := range pedir{
+
+		z := 0
+		for z < len(nodo.PEDIDO){
+
+			x := nodo.PEDIDO[z].FechaPedido
+			y := nodo.PEDIDO[z].TiendaPedido
+			r := nodo.PEDIDO[z].DepartamentoPedido
+			w := strconv.FormatInt(int64(nodo.PEDIDO[z].CalificacionPedido), 10)
+			v := strconv.FormatInt(int64(nodo.PEDIDO[z].ClientePedido), 10)
+
+			//var cod [100]int
+
+			//tas := 0
+
+			//for tas < len(nodo.PEDIDO[z].ProductosPedido){
+
+			//	cod[tas] = strconv.FormatInt(int64(nodo.PEDIDO[z].ProductosPedido[tas].ProductoCodigo), 10)
+
+			//	tas = tas + 1
+			//}
+
+			encript := [] byte (x+","+y+","+r+","+w+","+v)
+			hash := sha256.Sum256(encript)
+			id[z] = hex.EncodeToString(hash[:])
+
+			fmt.Println(id[z])
+
+			je := strconv.FormatInt(int64(z), 10)
+
+			grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`"];`	
+
+			z = z + 1
+		}
+
+		if (z % 2 == 0){
+			fmt.Println("Nodos Pares")
+
+		}else{
+			fmt.Println("Nodos Impares")
+
+			j := strconv.FormatInt(int64(z), 10)
+
+			encript := [] byte ("-"+j)
+			hash := sha256.Sum256(encript)
+			id[z] = hex.EncodeToString(hash[:])
+
+			grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
+
+			z = z + 1
+		}
+
+		a := z
+		d := 0
+		//r := 30
+		jas := z
+		rar := z
+		cont := 0
+		rot := 0
+		zo := z
+
+		for rot < 1000{
+
+
+			zo = a
+			fmt.Println(zo)
+			a = 0
+
+			for a < zo {
+				encript := [] byte (id[d]+","+id[d+1])
+				hash := sha256.Sum256(encript)
+				id[jas] = hex.EncodeToString(hash[:])
+	
+				fmt.Println(a)
+	
+				jo := strconv.FormatInt(int64(jas), 10)
+	
+				pr := strconv.FormatInt(int64(d), 10)
+	
+				ps := strconv.FormatInt(int64(d+1), 10)
+
+				grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+	
+				grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+				grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+	
+				a = a + 2
+				d = d + 2
+				cont = cont + 1
+				jas = jas + 1
+	
+				if a == zo{
+					fmt.Println(zo, a)
+					if a == 2{
+						fmt.Println("Paso final")
+						rot = 1000 + 1
+	
+					}else{
+	
+						if (cont % 2 == 0){
+							fmt.Println("Nodos Pares")
+							fmt.Println("Otro Nivel")
+							//rot = 1000 + 1
+				
+						}else{
+							fmt.Println("Nodos Impares")
+							fmt.Println("Otro Nivel")
+	
+							tot := strconv.FormatInt(int64(jas), 10)
+				
+							encript := [] byte ("-"+tot)
+							hash := sha256.Sum256(encript)
+							id[jas] = hex.EncodeToString(hash[:])
+
+							grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+	
+							jas = jas + 1
+							//rot = 1000 + 1
+						}
+	
+						d = rar
+						rar = jas
+						//r = r + 1
+						cont = 0
+						
+					}
+					
+	
+				}else{
+					fmt.Println("Sigue la secuencia")
+				}
+	
+			}
+
+
+			a = a/2
+
+			if (a % 2 == 0){
+				fmt.Println(a)
+				
+
+			}else{
+				a = a + 1
+				fmt.Println(a)
+
+			}
+
+		}
+
+
+
+		fmt.Println("Termino Bien")
+
+	}
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+}
+
+
+func arbolMerklePedidosEndPoint(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(MerklePedidosCrear())
+    err := ioutil.WriteFile("MerklePedidos.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearMerklePedidos.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./MerklePedidos.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 
@@ -1754,6 +2376,9 @@ func main() {
 
 
 	router.HandleFunc("/arbolMerkleUsuario", arbolMerkleUsuarioEndPoint).Methods("GET")
+	router.HandleFunc("/arbolMerkleTiendas", arbolMerkleTiendasEndPoint).Methods("GET")
+	router.HandleFunc("/arbolMerkleProductos", arbolMerkleProductosEndPoint).Methods("GET")
+	router.HandleFunc("/arbolMerklePedidos", arbolMerklePedidosEndPoint).Methods("GET")
 
 
 
