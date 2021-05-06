@@ -19,6 +19,7 @@ import { ReportesComponent } from './componentes/reportes/reportes.component';
 import { GrafoComponent } from './componentes/grafo/grafo.component';
 import { SeguridadComponent } from './componentes/seguridad/seguridad.component';
 import { ComentariosComponent } from './componentes/comentarios/comentarios.component';
+import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
 
 const routes: Routes = [
   {
@@ -92,6 +93,10 @@ const routes: Routes = [
   {
     path: "Comentarios",
     component: ComentariosComponent
+  },
+  {
+    path: "ArbolMerkle",
+    component: ArbolMerkleComponent
   }
 ];
 

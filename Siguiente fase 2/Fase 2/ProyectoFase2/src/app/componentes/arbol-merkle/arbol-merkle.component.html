@@ -1,0 +1,243 @@
+<div *ngIf="mostrarMensaje" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Arbol de Merkle visualizado
+            <button type="button" (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="mostrarMensajeError" class="row justify-content-around">
+    <div class="col-md-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            No se pudo visualizar el Arbol de Merckle
+            <button type="button"  (click)="desactivarMensaje()" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="rounded card shadow-lg o-hidden border-0 my-5">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-flex">
+                    <div class="flex-grow-1 bg-register-image"
+                        style="background-image: url(&quot;assets/img/amigoball.jpg&quot;);"></div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h4 class="text-dark mb-4">Arbol de Merkle</h4>
+                        </div>
+                        <div class="text-center">
+                          <h4 class="text-dark mb-4">Presionar el boton del Arbol de Merkle que quiera editar</h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="user">
+          <div class="row justify-content-center">
+              <div class="col-sm-6">
+                  <button (click)="ArbolUsuario()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                   Arbol de Merkle Usuarios Edicion
+                    
+                  </button>
+                  <button (click)="ArbolTiendas()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                    Arbol de Merkle Tiendas Edicion
+                     
+                   </button>
+                   <button (click)="ArbolProductos()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                    Arbol de Merkle Productos Edicion
+                     
+                   </button>
+                   <button (click)="ArbolPedidos()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                    Arbol de Merkle Pedidos Edicion
+                     
+                   </button>
+              </div>
+          </div>
+      </form>
+    </div>
+
+    <div *ngIf="ArUsuarios">
+    <div class="container"><h3 class="text-dark mb-4">Realizar Edicion del Arbol de Merkle de Usuarios</h3>
+        <form class="user">
+            <h5 class="text-dark mb-4">Escribir el Dpi del cliente del Nodo a editar</h5>
+            <div class="form-group row"> 
+                <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="DpiUsuario" class="form-control form-control-user"
+                        type="text" id="exampledDpiU" placeholder="Dpi Usuario" name="DpiU">
+                </div>
+                
+            </div>
+            <h5 class="text-dark mb-4">Escribir Datos Generales</h5>
+            <div class="form-group row"> 
+                <div class="col-sm-6"><input [formControl]="NombreUsuario" class="form-control form-control-user" type="text"
+                    id="exampleNombre" placeholder="Nombre Usuario" name="Nombre"></div>
+                <div class="col-sm-6"><input [formControl]="CorreoUsuario" class="form-control form-control-user" type="text"
+                    id="exampleCorreo" placeholder="Correo Usuario" name="Correo"></div>
+                <div class="col-sm-6">
+                    <input [formControl]="PasswordUsuario" class="form-control form-control-user" type="text" id="inputPassword"
+                        placeholder="Password Usuario" name="inputPassword">
+                </div>
+                <div class="form-group"><label for="email"><strong>Cuenta</strong></label>
+                    <select class="form-control form-select" [(ngModel)]="CuentaUsuario" name="Cuenta">
+                        <option> Admin </option>
+                        <option> Usuario </option>
+                      </select>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6">
+                    <button (click)="CambiarNodoUsuarios()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6">
+                    <button (click)="ArreglarUsuarios()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Usuarios</button>
+                </div>
+            </div>
+        </form>
+
+      </div>
+        
+    </div>
+
+    <div *ngIf="ArTiendas">
+        <div class="container"><h3 class="text-dark mb-4">Realizar Edicion del Arbol de Merkle de Tiendas</h3>
+            <form class="user">
+                <h5 class="text-dark mb-4">Escribir el Nombre de la Tienda del Nodo a editar</h5>
+                <div class="form-group row"> 
+                    <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="NombreTienda" class="form-control form-control-user"
+                            type="text" id="exampledNTienda" placeholder="Nombre Tienda" name="NombreTienda">
+                    </div>
+                    
+                </div>
+                <h5 class="text-dark mb-4">Escribir Datos Generales</h5>
+                <div class="form-group row"> 
+                    <div class="col-sm-6"><input [formControl]="DescripcionTienda" class="form-control form-control-user" type="text"
+                        id="exampleDesTienda" placeholder="Descripcion Tienda" name="DescripcionTienda"></div>
+                    <div class="col-sm-6"><input [formControl]="ContactoTienda" class="form-control form-control-user" type="text"
+                        id="exampleContacto" placeholder="Contacto Tienda" name="Contacto"></div>
+                    <div class="col-sm-6">
+                        <input [formControl]="CalificacionTienda" class="form-control form-control-user" type="text" id="inputCalificacionTienda"
+                            placeholder="Calificacion Tienda" name="inputCalificacionTienda">
+                    </div>
+                    <div class="col-sm-6">
+                      <input [formControl]="LogoTienda" class="form-control form-control-user" type="text" id="inputLogo"
+                          placeholder="URL de la imagen de Logo" name="inputLogo">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <button (click)="CambiarNodoTiendas()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <button (click)="ArreglarTiendas()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Tiendas</button>
+                    </div>
+                </div>
+            </form>
+    
+          </div>
+            
+        </div>
+
+        <div *ngIf="ArPedidos">
+        <div class="container"><h3 class="text-dark mb-4">Realizar Edicion del Arbol de Merkle de Pedidos</h3>
+            <form class="user">
+                <h5 class="text-dark mb-4">Escribir el Dpi del cliente del Nodo a editar</h5>
+                <div class="form-group row"> 
+                    <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="Dpi" class="form-control form-control-user"
+                            type="text" id="exampledDpi" placeholder="Dpi Cliente" name="Dpi">
+                    </div>
+                    
+                </div>
+                <h5 class="text-dark mb-4">Escribir Datos Generales</h5>
+                <div class="form-group row"> 
+                    <div class="col-sm-6"><input [formControl]="Tienda" class="form-control form-control-user" type="text"
+                        id="exampleTienda" placeholder="Tienda Pedido" name="Tienda"></div>
+                    <div class="col-sm-6"><input [formControl]="Departamento" class="form-control form-control-user" type="text"
+                        id="exampleDepartamento" placeholder="Departamento Pedido" name="Departamento"></div>
+                    <div class="col-sm-6">
+                        <input [formControl]="Calificacion" class="form-control form-control-user" type="text" id="inputCalificacion"
+                            placeholder="Calificacion Pedido" name="inputCalificacion">
+                    </div>
+                    <div class="col-sm-6">
+                      <input [formControl]="Fecha" class="form-control form-control-user" type="text" id="inputFecha"
+                          placeholder="Fecha Pedido: ../../.." name="inputFecha">
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <button (click)="CambiarNodoPedidos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6">
+                        <button (click)="ArreglarPedidos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Pedidos</button>
+                    </div>
+                </div>
+            </form>
+    
+          </div>
+            
+        </div>
+        <div *ngIf="ArProductos">
+            <div class="container"><h3 class="text-dark mb-4">Realizar Edicion del Arbol de Merkle de Productos</h3>
+                <form class="user">
+                    <h5 class="text-dark mb-4">Escribir el Codigo del Producto del Nodo a editar</h5>
+                    <div class="form-group row"> 
+                        <div class="col-sm-6 mb-3 mb-sm-0"><input [formControl]="CodigoProducto" class="form-control form-control-user"
+                                type="text" id="exampleCodigo" placeholder="Codigo Producto" name="Codigo">
+                        </div>
+                        
+                    </div>
+                    <h5 class="text-dark mb-4">Escribir Datos Generales</h5>
+                    <div class="form-group row"> 
+                        <div class="col-sm-6"><input [formControl]="NombreProducto" class="form-control form-control-user" type="text"
+                            id="exampleNProducto" placeholder="Nombre Producto" name="NombreProducto"></div>
+                        <div class="col-sm-6"><input [formControl]="DescripcionProducto" class="form-control form-control-user" type="text"
+                            id="exampleDescripcion" placeholder="Descripcion Producto" name="Descripcion"></div>
+                        <div class="col-sm-6">
+                            <input [formControl]="PrecioProducto" class="form-control form-control-user" type="text" id="inputPrecio"
+                                placeholder="Precio Producto" name="inputPrecio">
+                        </div>
+                        <div class="col-sm-6">
+                          <input [formControl]="CantidadProducto" class="form-control form-control-user" type="text" id="inputCantidad"
+                              placeholder="Cantidad Producto" name="inputCantidad">
+                      </div>
+                      <div class="col-sm-6">
+                        <input [formControl]="ImagenProducto" class="form-control form-control-user" type="text" id="inputImagen"
+                            placeholder="URL de una imagen" name="inputImagen">
+                    </div>
+                    <div class="col-sm-6">
+                        <input [formControl]="AlmacenProducto" class="form-control form-control-user" type="text" id="inputAlmacen"
+                            placeholder="Almacenamiento Producto" name="inputAlmacen">
+                    </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <button (click)="CambiarNodoProductos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <button (click)="ArreglarProductos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Productos</button>
+                        </div>
+                    </div>
+                </form>
+        
+              </div>
+                
+            </div>
+    
+    
+

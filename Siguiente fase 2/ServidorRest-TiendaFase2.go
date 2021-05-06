@@ -197,6 +197,14 @@ type Encriptado struct{
 
 
 
+var IdPedidos [1000]string
+
+var IdUsuarios [1000]string
+
+var IdTiendas [1000]string
+
+var IdProductos [1000]string
+
 // no usar esta seccion encacillada{
 
 var lista []infolista
@@ -1550,6 +1558,8 @@ func MerkleUsuarioCrear() string{
 
 	var id [1000]string
 
+	dot := 0
+
 	for _, nodo := range miembro{
 
 		z := 0
@@ -1563,155 +1573,141 @@ func MerkleUsuarioCrear() string{
 
 			encript := [] byte (x+","+y+","+r+","+w+","+v)
 			hash := sha256.Sum256(encript)
-			id[z] = hex.EncodeToString(hash[:])
+			id[dot] = hex.EncodeToString(hash[:])
 
-			fmt.Println(id[z])
+			IdUsuarios[dot] = hex.EncodeToString(hash[:])
 
-			je := strconv.FormatInt(int64(z), 10)
+			fmt.Println(id[dot])
 
-			grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`"];`	
+			je := strconv.FormatInt(int64(dot), 10)
+
+			grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`"];`	
 
 			z = z + 1
+			dot = dot + 1
 		}
+		fmt.Println("Termino Bien")
 
-		if (z % 2 == 0){
-			fmt.Println("Nodos Pares")
+	}
 
-		}else{
-			fmt.Println("Nodos Impares")
+	if (dot % 2 == 0){
+		fmt.Println("Nodos Pares")
 
-			j := strconv.FormatInt(int64(z), 10)
+	}else{
+		fmt.Println("Nodos Impares")
 
-			encript := [] byte ("-"+j)
+		j := strconv.FormatInt(int64(dot), 10)
+
+		encript := [] byte ("-"+j)
+		hash := sha256.Sum256(encript)
+		id[dot] = hex.EncodeToString(hash[:])
+
+		IdUsuarios[dot] = hex.EncodeToString(hash[:])
+
+		grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n-`+j+`"];`	
+
+		dot = dot + 1
+	}
+
+	a := dot
+	d := 0
+	//r := 30
+	jas := dot
+	rar := dot
+	cont := 0
+	rot := 0
+	zo := dot
+
+	for rot < 1000{
+
+
+		zo = a
+		fmt.Println(zo)
+		a = 0
+
+		for a < zo {
+			encript := [] byte (id[d]+","+id[d+1])
 			hash := sha256.Sum256(encript)
-			id[z] = hex.EncodeToString(hash[:])
+			id[jas] = hex.EncodeToString(hash[:])
 
-			grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
-
-			z = z + 1
-		}
-
-		a := z
-		d := 0
-		//r := 30
-		jas := z
-		rar := z
-		cont := 0
-		rot := 0
-		zo := z
-
-		for rot < 1000{
+			IdUsuarios[jas] = hex.EncodeToString(hash[:])
 
 
-			zo = a
-			fmt.Println(zo)
-			a = 0
+			fmt.Println(a)
 
-			for a < zo {
-				encript := [] byte (id[d]+","+id[d+1])
-				hash := sha256.Sum256(encript)
-				id[jas] = hex.EncodeToString(hash[:])
-	
-				fmt.Println(a)
-	
-				jo := strconv.FormatInt(int64(jas), 10)
-	
-				pr := strconv.FormatInt(int64(d), 10)
-	
-				ps := strconv.FormatInt(int64(d+1), 10)
+			jo := strconv.FormatInt(int64(jas), 10)
 
-				grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
-	
-				grafo += "Nodo"+pr+" -> Nodo"+jo+";"
-				grafo += "Nodo"+ps+" -> Nodo"+jo+";"
-	
-				a = a + 2
-				d = d + 2
-				cont = cont + 1
-				jas = jas + 1
-	
-				if a == zo{
-					fmt.Println(zo, a)
-					if a == 2{
-						fmt.Println("Paso final")
-						rot = 1000 + 1
-	
-					}else{
-	
-						if (cont % 2 == 0){
-							fmt.Println("Nodos Pares")
-							fmt.Println("Otro Nivel")
-							//rot = 1000 + 1
-				
-						}else{
-							fmt.Println("Nodos Impares")
-							fmt.Println("Otro Nivel")
-	
-							tot := strconv.FormatInt(int64(jas), 10)
-				
-							encript := [] byte ("-"+tot)
-							hash := sha256.Sum256(encript)
-							id[jas] = hex.EncodeToString(hash[:])
+			pr := strconv.FormatInt(int64(d), 10)
 
-							grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
-	
-							jas = jas + 1
-							//rot = 1000 + 1
-						}
-	
-						d = rar
-						rar = jas
-						//r = r + 1
-						cont = 0
-						
-					}
-					
-	
+			ps := strconv.FormatInt(int64(d+1), 10)
+
+			grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+
+			grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+			grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+
+			a = a + 2
+			d = d + 2
+			cont = cont + 1
+			jas = jas + 1
+
+			if a == zo{
+				fmt.Println(zo, a)
+				if a == 2{
+					fmt.Println("Paso final")
+					rot = 1000 + 1
+
 				}else{
-					fmt.Println("Sigue la secuencia")
+
+					if (cont % 2 == 0){
+						fmt.Println("Nodos Pares")
+						fmt.Println("Otro Nivel")
+						//rot = 1000 + 1
+			
+					}else{
+						fmt.Println("Nodos Impares")
+						fmt.Println("Otro Nivel")
+
+						tot := strconv.FormatInt(int64(jas), 10)
+			
+						encript := [] byte ("-"+tot)
+						hash := sha256.Sum256(encript)
+						id[jas] = hex.EncodeToString(hash[:])
+
+						IdUsuarios[jas] = hex.EncodeToString(hash[:])
+
+						grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+
+						jas = jas + 1
+						//rot = 1000 + 1
+					}
+
+					d = rar
+					rar = jas
+					//r = r + 1
+					cont = 0
+					
 				}
-	
-			}
-
-
-			a = a/2
-
-			if (a % 2 == 0){
-				fmt.Println(a)
 				
 
 			}else{
-				a = a + 1
-				fmt.Println(a)
-
+				fmt.Println("Sigue la secuencia")
 			}
 
 		}
 
 
-		
+		a = a/2
 
-		//encript := [] byte (id[d-2]+","+id[d-1])
-		//hash := sha256.Sum256(encript)
-		//id[jas] = string(hash[:])
+		if (a % 2 == 0){
+			fmt.Println(a)
+			
 
-		//jos := strconv.FormatInt(int64(jas), 10)
+		}else{
+			a = a + 1
+			fmt.Println(a)
 
-		//prr := strconv.FormatInt(int64(jas-2), 10)
-
-		//pss := strconv.FormatInt(int64(jas-1), 10)
-
-		//grafo+=`N`+ jos +` [shape=record label=<`
-	    //grafo+=`<table cellspacing="0" border="0" cellborder="1">`
-	    //grafo+="<tr><td colspan=\"2\">"+"id[jas]"+ "</td>"
-	    //grafo+="<tr><td colspan=\"2\">"+"id[d-2]"+ "</td>"
-	    //grafo+="<tr><td colspan=\"2\">"+"id[d-1]"+"</td></tr></table>"
-	    //grafo+=` >];`
-
-		//grafo += "N"+prr+"->N"+jos+";"
-		//grafo += "N"+pss+"->N"+jos+";"
-
-		fmt.Println("Termino Bien")
+		}
 
 	}
 
@@ -1760,6 +1756,8 @@ func MerkleTiendasCrear() string{
 
 	var id [1000]string
 
+	dot := 0
+
 	for _, nodo := range cargartienda{
 
 		for ty := 0; ty < len(nodo.DATOSINFO); ty++{
@@ -1780,137 +1778,148 @@ func MerkleTiendasCrear() string{
 		
 					encript := [] byte (x+","+y+","+r+","+w+","+v+","+q)
 					hash := sha256.Sum256(encript)
-					id[z] = hex.EncodeToString(hash[:])
+					id[dot] = hex.EncodeToString(hash[:])
+
+					IdTiendas[dot] = hex.EncodeToString(hash[:])
 		
-					fmt.Println(id[z])
+					fmt.Println(id[dot])
 		
-					je := strconv.FormatInt(int64(z), 10)
+					je := strconv.FormatInt(int64(dot), 10)
 		
-					grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`&#92;n`+q+`"];`	
-		
-					z = z + 1
-				}
-		
-				if (z % 2 == 0){
-					fmt.Println("Nodos Pares")
-		
-				}else{
-					fmt.Println("Nodos Impares")
-		
-					j := strconv.FormatInt(int64(z), 10)
-		
-					encript := [] byte ("-"+j)
-					hash := sha256.Sum256(encript)
-					id[z] = hex.EncodeToString(hash[:])
-		
-					grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
+					grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`&#92;n`+q+`"];`	
 		
 					z = z + 1
-				}
-		
-				a := z
-				d := 0
-				//r := 30
-				jas := z
-				rar := z
-				cont := 0
-				rot := 0
-				zo := z
-		
-				for rot < 1000{
-		
-		
-					zo = a
-					fmt.Println(zo)
-					a = 0
-		
-					for a < zo {
-						encript := [] byte (id[d]+","+id[d+1])
-						hash := sha256.Sum256(encript)
-						id[jas] = hex.EncodeToString(hash[:])
-			
-						fmt.Println(a)
-			
-						jo := strconv.FormatInt(int64(jas), 10)
-			
-						pr := strconv.FormatInt(int64(d), 10)
-			
-						ps := strconv.FormatInt(int64(d+1), 10)
-		
-						grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
-			
-						grafo += "Nodo"+pr+" -> Nodo"+jo+";"
-						grafo += "Nodo"+ps+" -> Nodo"+jo+";"
-			
-						a = a + 2
-						d = d + 2
-						cont = cont + 1
-						jas = jas + 1
-			
-						if a == zo{
-							fmt.Println(zo, a)
-							if a == 2{
-								fmt.Println("Paso final")
-								rot = 1000 + 1
-			
-							}else{
-			
-								if (cont % 2 == 0){
-									fmt.Println("Nodos Pares")
-									fmt.Println("Otro Nivel")
-									//rot = 1000 + 1
-						
-								}else{
-									fmt.Println("Nodos Impares")
-									fmt.Println("Otro Nivel")
-			
-									tot := strconv.FormatInt(int64(jas), 10)
-						
-									encript := [] byte ("-"+tot)
-									hash := sha256.Sum256(encript)
-									id[jas] = hex.EncodeToString(hash[:])
-		
-									grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
-			
-									jas = jas + 1
-									//rot = 1000 + 1
-								}
-			
-								d = rar
-								rar = jas
-								//r = r + 1
-								cont = 0
-								
-							}
-							
-			
-						}else{
-							fmt.Println("Sigue la secuencia")
-						}
-			
-					}
-		
-		
-					a = a/2
-		
-					if (a % 2 == 0){
-						fmt.Println(a)
-						
-		
-					}else{
-						a = a + 1
-						fmt.Println(a)
-		
-					}
-		
+					dot = dot + 1
 				}
 
 				yum = yum + 1
 			}
 
 		}
-
 		fmt.Println("Termino Bien")
+
+	}
+	if (dot % 2 == 0){
+		fmt.Println("Nodos Pares")
+
+	}else{
+		fmt.Println("Nodos Impares")
+
+		j := strconv.FormatInt(int64(dot), 10)
+
+		encript := [] byte ("-"+j)
+		hash := sha256.Sum256(encript)
+		id[dot] = hex.EncodeToString(hash[:])
+
+		IdTiendas[dot] = hex.EncodeToString(hash[:])
+
+
+		grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n-`+j+`"];`	
+
+		//z = z + 1
+		dot = dot + 1
+	}
+
+	a := dot
+	d := 0
+	//r := 30
+	jas := dot
+	rar := dot
+	cont := 0
+	rot := 0
+	zo := dot
+
+	for rot < 1000{
+
+
+		zo = a
+		fmt.Println(zo)
+		a = 0
+
+		for a < zo {
+			encript := [] byte (id[d]+","+id[d+1])
+			hash := sha256.Sum256(encript)
+			id[jas] = hex.EncodeToString(hash[:])
+
+			IdTiendas[jas] = hex.EncodeToString(hash[:])
+
+
+			fmt.Println(a)
+
+			jo := strconv.FormatInt(int64(jas), 10)
+
+			pr := strconv.FormatInt(int64(d), 10)
+
+			ps := strconv.FormatInt(int64(d+1), 10)
+
+			grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+
+			grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+			grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+
+			a = a + 2
+			d = d + 2
+			cont = cont + 1
+			jas = jas + 1
+
+			if a == zo{
+				fmt.Println(zo, a)
+				if a == 2{
+					fmt.Println("Paso final")
+					rot = 1000 + 1
+
+				}else{
+
+					if (cont % 2 == 0){
+						fmt.Println("Nodos Pares")
+						fmt.Println("Otro Nivel")
+						//rot = 1000 + 1
+			
+					}else{
+						fmt.Println("Nodos Impares")
+						fmt.Println("Otro Nivel")
+
+						tot := strconv.FormatInt(int64(jas), 10)
+			
+						encript := [] byte ("-"+tot)
+						hash := sha256.Sum256(encript)
+						id[jas] = hex.EncodeToString(hash[:])
+
+						IdTiendas[jas] = hex.EncodeToString(hash[:])
+
+
+						grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+
+						jas = jas + 1
+						//rot = 1000 + 1
+					}
+
+					d = rar
+					rar = jas
+					//r = r + 1
+					cont = 0
+					
+				}
+				
+
+			}else{
+				fmt.Println("Sigue la secuencia")
+			}
+
+		}
+
+
+		a = a/2
+
+		if (a % 2 == 0){
+			fmt.Println(a)
+			
+
+		}else{
+			a = a + 1
+			fmt.Println(a)
+
+		}
 
 	}
 
@@ -1959,6 +1968,8 @@ func MerkleProductosCrear() string{
 
 	var id [1000]string
 
+	dot := 0
+
 	for _, nodo := range invent{
 
 		for ty := 0; ty < len(nodo.DatosInventario); ty++{
@@ -1976,134 +1987,146 @@ func MerkleProductosCrear() string{
 	
 				encript := [] byte (x+","+y+","+r+","+w+","+v+","+q+","+e)
 				hash := sha256.Sum256(encript)
-				id[z] = hex.EncodeToString(hash[:])
+				id[dot] = hex.EncodeToString(hash[:])
+
+				IdProductos[dot] = hex.EncodeToString(hash[:])
+
 	
-				fmt.Println(id[z])
+				fmt.Println(id[dot])
 	
-				je := strconv.FormatInt(int64(z), 10)
+				je := strconv.FormatInt(int64(dot), 10)
 	
-				grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`&#92;n`+q+`&#92;n`+e+`"];`	
-	
-				z = z + 1
-			}
-	
-			if (z % 2 == 0){
-				fmt.Println("Nodos Pares")
-	
-			}else{
-				fmt.Println("Nodos Impares")
-	
-				j := strconv.FormatInt(int64(z), 10)
-	
-				encript := [] byte ("-"+j)
-				hash := sha256.Sum256(encript)
-				id[z] = hex.EncodeToString(hash[:])
-	
-				grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
+				grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`&#92;n`+q+`&#92;n`+e+`"];`	
 	
 				z = z + 1
+				dot = dot + 1
 			}
 	
-			a := z
-			d := 0
-			//r := 30
-			jas := z
-			rar := z
-			cont := 0
-			rot := 0
-			zo := z
-	
-			for rot < 1000{
-	
-	
-				zo = a
-				fmt.Println(zo)
-				a = 0
-	
-				for a < zo {
-					encript := [] byte (id[d]+","+id[d+1])
-					hash := sha256.Sum256(encript)
-					id[jas] = hex.EncodeToString(hash[:])
-		
-					fmt.Println(a)
-		
-					jo := strconv.FormatInt(int64(jas), 10)
-		
-					pr := strconv.FormatInt(int64(d), 10)
-		
-					ps := strconv.FormatInt(int64(d+1), 10)
-	
-					grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
-		
-					grafo += "Nodo"+pr+" -> Nodo"+jo+";"
-					grafo += "Nodo"+ps+" -> Nodo"+jo+";"
-		
-					a = a + 2
-					d = d + 2
-					cont = cont + 1
-					jas = jas + 1
-		
-					if a == zo{
-						fmt.Println(zo, a)
-						if a == 2{
-							fmt.Println("Paso final")
-							rot = 1000 + 1
-		
-						}else{
-		
-							if (cont % 2 == 0){
-								fmt.Println("Nodos Pares")
-								fmt.Println("Otro Nivel")
-								//rot = 1000 + 1
-					
-							}else{
-								fmt.Println("Nodos Impares")
-								fmt.Println("Otro Nivel")
-		
-								tot := strconv.FormatInt(int64(jas), 10)
-					
-								encript := [] byte ("-"+tot)
-								hash := sha256.Sum256(encript)
-								id[jas] = hex.EncodeToString(hash[:])
-	
-								grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
-		
-								jas = jas + 1
-								//rot = 1000 + 1
-							}
-		
-							d = rar
-							rar = jas
-							//r = r + 1
-							cont = 0
-							
-						}
-						
-		
-					}else{
-						fmt.Println("Sigue la secuencia")
-					}
-		
-				}
-	
-	
-				a = a/2
-	
-				if (a % 2 == 0){
-					fmt.Println(a)
-					
-	
+
+
+		}
+		fmt.Println("Termino Bien")
+
+	}
+	if (dot % 2 == 0){
+		fmt.Println("Nodos Pares")
+
+	}else{
+		fmt.Println("Nodos Impares")
+
+		j := strconv.FormatInt(int64(dot), 10)
+
+		encript := [] byte ("-"+j)
+		hash := sha256.Sum256(encript)
+		id[dot] = hex.EncodeToString(hash[:])
+
+		IdProductos[dot] = hex.EncodeToString(hash[:])
+
+		grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n-`+j+`"];`	
+
+		dot = dot + 1
+	}
+
+	a := dot
+	d := 0
+	//r := 30
+	jas := dot
+	rar := dot
+	cont := 0
+	rot := 0
+	zo := dot
+
+	for rot < 1000{
+
+
+		zo = a
+		fmt.Println(zo)
+		a = 0
+
+		for a < zo {
+			encript := [] byte (id[d]+","+id[d+1])
+			hash := sha256.Sum256(encript)
+			id[jas] = hex.EncodeToString(hash[:])
+
+			IdProductos[jas] = hex.EncodeToString(hash[:])
+
+
+
+			fmt.Println(a)
+
+			jo := strconv.FormatInt(int64(jas), 10)
+
+			pr := strconv.FormatInt(int64(d), 10)
+
+			ps := strconv.FormatInt(int64(d+1), 10)
+
+			grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+
+			grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+			grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+
+			a = a + 2
+			d = d + 2
+			cont = cont + 1
+			jas = jas + 1
+
+			if a == zo{
+				fmt.Println(zo, a)
+				if a == 2{
+					fmt.Println("Paso final")
+					rot = 1000 + 1
+
 				}else{
-					a = a + 1
-					fmt.Println(a)
-	
+
+					if (cont % 2 == 0){
+						fmt.Println("Nodos Pares")
+						fmt.Println("Otro Nivel")
+						//rot = 1000 + 1
+			
+					}else{
+						fmt.Println("Nodos Impares")
+						fmt.Println("Otro Nivel")
+
+						tot := strconv.FormatInt(int64(jas), 10)
+			
+						encript := [] byte ("-"+tot)
+						hash := sha256.Sum256(encript)
+						id[jas] = hex.EncodeToString(hash[:])
+
+						IdProductos[jas] = hex.EncodeToString(hash[:])
+
+						grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+
+						jas = jas + 1
+						//rot = 1000 + 1
+					}
+
+					d = rar
+					rar = jas
+					//r = r + 1
+					cont = 0
+					
 				}
-	
+				
+
+			}else{
+				fmt.Println("Sigue la secuencia")
 			}
 
 		}
 
-		fmt.Println("Termino Bien")
+
+		a = a/2
+
+		if (a % 2 == 0){
+			fmt.Println(a)
+			
+
+		}else{
+			a = a + 1
+			fmt.Println(a)
+
+		}
 
 	}
 
@@ -2153,6 +2176,8 @@ func MerklePedidosCrear() string{
 
 	var id [1000]string
 
+	dot := 0
+
 	for _, nodo := range pedir{
 
 		z := 0
@@ -2177,134 +2202,143 @@ func MerklePedidosCrear() string{
 
 			encript := [] byte (x+","+y+","+r+","+w+","+v)
 			hash := sha256.Sum256(encript)
-			id[z] = hex.EncodeToString(hash[:])
+			id[dot] = hex.EncodeToString(hash[:])
 
-			fmt.Println(id[z])
+			IdPedidos[dot] = hex.EncodeToString(hash[:])
 
-			je := strconv.FormatInt(int64(z), 10)
+			fmt.Println(id[dot])
 
-			grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`"];`	
+			je := strconv.FormatInt(int64(dot), 10)
+
+			grafo+=`Nodo`+ je +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n`+x+`&#92;n`+y+`&#92;n`+r+`&#92;n`+w+`&#92;n`+v+`"];`	
 
 			z = z + 1
+			dot = dot + 1
 		}
 
-		if (z % 2 == 0){
-			fmt.Println("Nodos Pares")
+		fmt.Println("Termino Bien")
 
-		}else{
-			fmt.Println("Nodos Impares")
+	}
 
-			j := strconv.FormatInt(int64(z), 10)
+	if (dot % 2 == 0){
+		fmt.Println("Nodos Pares")
 
-			encript := [] byte ("-"+j)
+	}else{
+		fmt.Println("Nodos Impares")
+
+		j := strconv.FormatInt(int64(dot), 10)
+
+		encript := [] byte ("-"+j)
+		hash := sha256.Sum256(encript)
+		id[dot] = hex.EncodeToString(hash[:])
+
+		IdPedidos[dot] = hex.EncodeToString(hash[:])
+
+		grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[dot]+`&#92;n&#92;n-`+j+`"];`	
+
+		dot = dot + 1
+	}
+
+	a := dot
+	d := 0
+	//r := 30
+	jas := dot
+	rar := dot
+	cont := 0
+	rot := 0
+	zo := dot
+
+	for rot < 1000{
+
+
+		zo = a
+		fmt.Println(zo)
+		a = 0
+
+		for a < zo {
+			encript := [] byte (id[d]+","+id[d+1])
 			hash := sha256.Sum256(encript)
-			id[z] = hex.EncodeToString(hash[:])
+			id[jas] = hex.EncodeToString(hash[:])
 
-			grafo+=`Nodo`+ j +`[shape=record,fillcolor=green,style=filled,label="`+id[z]+`&#92;n&#92;n-`+j+`"];`	
-
-			z = z + 1
-		}
-
-		a := z
-		d := 0
-		//r := 30
-		jas := z
-		rar := z
-		cont := 0
-		rot := 0
-		zo := z
-
-		for rot < 1000{
+			IdPedidos[jas] = hex.EncodeToString(hash[:])
 
 
-			zo = a
-			fmt.Println(zo)
-			a = 0
+			fmt.Println(a)
 
-			for a < zo {
-				encript := [] byte (id[d]+","+id[d+1])
-				hash := sha256.Sum256(encript)
-				id[jas] = hex.EncodeToString(hash[:])
-	
-				fmt.Println(a)
-	
-				jo := strconv.FormatInt(int64(jas), 10)
-	
-				pr := strconv.FormatInt(int64(d), 10)
-	
-				ps := strconv.FormatInt(int64(d+1), 10)
+			jo := strconv.FormatInt(int64(jas), 10)
 
-				grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
-	
-				grafo += "Nodo"+pr+" -> Nodo"+jo+";"
-				grafo += "Nodo"+ps+" -> Nodo"+jo+";"
-	
-				a = a + 2
-				d = d + 2
-				cont = cont + 1
-				jas = jas + 1
-	
-				if a == zo{
-					fmt.Println(zo, a)
-					if a == 2{
-						fmt.Println("Paso final")
-						rot = 1000 + 1
-	
-					}else{
-	
-						if (cont % 2 == 0){
-							fmt.Println("Nodos Pares")
-							fmt.Println("Otro Nivel")
-							//rot = 1000 + 1
-				
-						}else{
-							fmt.Println("Nodos Impares")
-							fmt.Println("Otro Nivel")
-	
-							tot := strconv.FormatInt(int64(jas), 10)
-				
-							encript := [] byte ("-"+tot)
-							hash := sha256.Sum256(encript)
-							id[jas] = hex.EncodeToString(hash[:])
+			pr := strconv.FormatInt(int64(d), 10)
 
-							grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
-	
-							jas = jas + 1
-							//rot = 1000 + 1
-						}
-	
-						d = rar
-						rar = jas
-						//r = r + 1
-						cont = 0
-						
-					}
-					
-	
+			ps := strconv.FormatInt(int64(d+1), 10)
+
+			grafo+=`Nodo`+ jo +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n`+id[d]+`&#92;n`+id[d+1]+`"];`	
+
+			grafo += "Nodo"+pr+" -> Nodo"+jo+";"
+			grafo += "Nodo"+ps+" -> Nodo"+jo+";"
+
+			a = a + 2
+			d = d + 2
+			cont = cont + 1
+			jas = jas + 1
+
+			if a == zo{
+				fmt.Println(zo, a)
+				if a == 2{
+					fmt.Println("Paso final")
+					rot = 1000 + 1
+
 				}else{
-					fmt.Println("Sigue la secuencia")
+
+					if (cont % 2 == 0){
+						fmt.Println("Nodos Pares")
+						fmt.Println("Otro Nivel")
+						//rot = 1000 + 1
+			
+					}else{
+						fmt.Println("Nodos Impares")
+						fmt.Println("Otro Nivel")
+
+						tot := strconv.FormatInt(int64(jas), 10)
+			
+						encript := [] byte ("-"+tot)
+						hash := sha256.Sum256(encript)
+						id[jas] = hex.EncodeToString(hash[:])
+
+						IdPedidos[jas] = hex.EncodeToString(hash[:])
+
+
+						grafo+=`Nodo`+ tot +`[shape=record,fillcolor=green,style=filled,label="`+id[jas]+`&#92;n&#92;n-`+tot+`"];`	
+
+						jas = jas + 1
+						//rot = 1000 + 1
+					}
+
+					d = rar
+					rar = jas
+					//r = r + 1
+					cont = 0
+					
 				}
-	
-			}
-
-
-			a = a/2
-
-			if (a % 2 == 0){
-				fmt.Println(a)
 				
 
 			}else{
-				a = a + 1
-				fmt.Println(a)
-
+				fmt.Println("Sigue la secuencia")
 			}
 
 		}
 
 
+		a = a/2
 
-		fmt.Println("Termino Bien")
+		if (a % 2 == 0){
+			fmt.Println(a)
+			
+
+		}else{
+			a = a + 1
+			fmt.Println(a)
+
+		}
 
 	}
 

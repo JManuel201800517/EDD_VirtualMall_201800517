@@ -24,6 +24,7 @@ import { ReportesComponent } from './componentes/reportes/reportes.component';
 import { GrafoComponent } from './componentes/grafo/grafo.component';
 import { SeguridadComponent } from './componentes/seguridad/seguridad.component';
 import { ComentariosComponent } from './componentes/comentarios/comentarios.component';
+import { ArbolMerkleComponent } from './componentes/arbol-merkle/arbol-merkle.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ComentariosComponent } from './componentes/comentarios/comentarios.comp
     ReportesComponent,
     GrafoComponent,
     SeguridadComponent,
-    ComentariosComponent
+    ComentariosComponent,
+    ArbolMerkleComponent
   ],
   imports: [
     BrowserModule,
