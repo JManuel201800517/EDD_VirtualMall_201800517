@@ -34,6 +34,7 @@ export class CargarTiendasComponent implements OnInit {
 
   mostrarMensaje = false;
   mostrarMensajeError = false;
+  mensajeError = ''
 
   constructor(private subirtiendaservice: SubirtiendaService) { }
 
@@ -43,28 +44,6 @@ export class CargarTiendasComponent implements OnInit {
   subirTiendas(){
     console.log("Funciona muy bien")
 
-    //const info: Info={
-      //id: Number(this.archivo),
-      //nombre: this.archivo,
-      //descripcion: this.archivo,
-      //contacto: this.archivo,
-      //calificacion: Number(this.archivo),
-      //logo: this.archivo
-    //}
-
-    //const departamentos: Departamentos={
-      //tipotienda: this.archivo,
-      //notienda:[]    
-    //}
-
-    //const datos: Datos={
-     // indice: this.archivo,
-      //departinfo:[]    
-    //}
-
-    //const tienda: Tienda={
-      //datosinfo:[]
-    //}
 
     this.subirtiendaservice.postTienda(this.nombre.value).subscribe((res:any)=>{
       this.mostrarMensaje=true
@@ -74,6 +53,15 @@ export class CargarTiendasComponent implements OnInit {
 
     }, (err)=>{
       this.mostrarMensajeError=true
+    })
+
+
+    this.subirtiendaservice.getMerkleTiendas().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
   }
 

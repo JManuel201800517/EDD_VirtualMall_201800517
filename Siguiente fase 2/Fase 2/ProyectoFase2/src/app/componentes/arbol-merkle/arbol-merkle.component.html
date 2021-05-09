@@ -93,16 +93,20 @@
                       </select>
                 </div>
             </div>
+            <div *ngIf="NodoUsuario">
             <div class="row justify-content-center">
                 <div class="col-sm-6">
                     <button (click)="CambiarNodoUsuarios()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
                 </div>
             </div>
+            </div>
+            <div *ngIf="ArreglarUsuario">
             <div class="row justify-content-center">
                 <div class="col-sm-6">
                     <button (click)="ArreglarUsuarios()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Usuarios</button>
                 </div>
             </div>
+        </div>
         </form>
 
       </div>
@@ -134,16 +138,20 @@
                           placeholder="URL de la imagen de Logo" name="inputLogo">
                   </div>
                 </div>
+                <div *ngIf="NodoTienda">
                 <div class="row justify-content-center">
                     <div class="col-sm-6">
                         <button (click)="CambiarNodoTiendas()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
                     </div>
                 </div>
+               </div>
+               <div *ngIf="ArreglarTienda">
                 <div class="row justify-content-center">
                     <div class="col-sm-6">
                         <button (click)="ArreglarTiendas()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Tiendas</button>
                     </div>
                 </div>
+            </div>
             </form>
     
           </div>
@@ -175,15 +183,19 @@
                           placeholder="Fecha Pedido: ../../.." name="inputFecha">
                   </div>
                 </div>
+                <div *ngIf="NodoPedido">
                 <div class="row justify-content-center">
                     <div class="col-sm-6">
                         <button (click)="CambiarNodoPedidos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
                     </div>
                 </div>
+                </div>
+                <div *ngIf="ArreglarPedido">
                 <div class="row justify-content-center">
                     <div class="col-sm-6">
                         <button (click)="ArreglarPedidos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Pedidos</button>
                     </div>
+                </div>
                 </div>
             </form>
     
@@ -223,16 +235,20 @@
                             placeholder="Almacenamiento Producto" name="inputAlmacen">
                     </div>
                     </div>
+                    <div *ngIf="NodoProducto">
                     <div class="row justify-content-center">
                         <div class="col-sm-6">
                             <button (click)="CambiarNodoProductos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Confirmar Edicion</button>
                         </div>
                     </div>
+                    </div>
+                    <div *ngIf="ArreglarProducto">
                     <div class="row justify-content-center">
                         <div class="col-sm-6">
                             <button (click)="ArreglarProductos()" class="btn btn-primary btn-block text-white btn-user" type="submit">Arreglar Merkle Productos</button>
                         </div>
                     </div>
+                </div>
                 </form>
         
               </div>

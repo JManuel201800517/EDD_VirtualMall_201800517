@@ -13,6 +13,15 @@ export class InventarioService {
 
   constructor(private http: HttpClient) { }
 
+  getMerkleProductos():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'arbolMerkleProductos', httpOptions);
+  }
+
   postComentarioProducto(producto: ComentProducto):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({

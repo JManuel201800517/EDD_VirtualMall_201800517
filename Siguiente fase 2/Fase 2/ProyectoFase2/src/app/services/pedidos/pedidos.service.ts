@@ -11,6 +11,15 @@ export class PedidosService {
 
   constructor(private http: HttpClient) { }
 
+  getMerklePedidos():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'arbolMerklePedidos', httpOptions);
+  }
+
   postPedido(pedir: string):Observable<Pedidos>{
     const httpOptions = {
       headers: new HttpHeaders({

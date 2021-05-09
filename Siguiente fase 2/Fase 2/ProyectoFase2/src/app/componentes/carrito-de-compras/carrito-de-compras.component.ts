@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { Pedidos } from "../../models/pedidos/pedidos";
 import { Infopedido } from "../../models/infopedido/infopedido";
 import { Pedirproductos } from "../../models/pedirproductos/pedirproductos";
+import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 
 @Component({
   selector: 'app-carrito-de-compras',
@@ -40,7 +41,7 @@ export class CarritoDeComprasComponent implements OnInit {
 
   numero = 0;
 
-  constructor(private inventarioService: InventarioService) { }
+  constructor(private inventarioService: InventarioService, private pedidosservice: PedidosService) { }
 
   ngOnInit(): void {
 
@@ -102,6 +103,15 @@ export class CarritoDeComprasComponent implements OnInit {
       })
 
     }
+
+
+    this.pedidosservice.getMerklePedidos().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
+    })
 
   }
 

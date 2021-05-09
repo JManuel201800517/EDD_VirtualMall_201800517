@@ -44,6 +44,16 @@ export class ArbolMerkleComponent implements OnInit {
   ArProductos = false;
   ArUsuarios = false;
 
+  NodoPedido = true;
+  NodoUsuario = true;
+  NodoTienda = true;
+  NodoProducto = true;
+
+  ArreglarPedido = false;
+  ArreglarUsuario = false;
+  ArreglarTienda = false;
+  ArreglarProducto = false;
+
 
   constructor() { }
 
@@ -83,34 +93,51 @@ export class ArbolMerkleComponent implements OnInit {
   }
 
   CambiarNodoPedidos(){
-    
+    this.NodoPedido = false;
+    this.ArreglarPedido = true;  
+
   }
 
   CambiarNodoUsuarios(){
+    this.NodoUsuario = false;
+    this.ArreglarUsuario = true;  
 
   }
 
   CambiarNodoProductos(){
+    this.NodoProducto = false;
+    this.ArreglarProducto = true;  
 
   }
 
   CambiarNodoTiendas(){
+    this.NodoTienda = false;
+    this.ArreglarTienda = true;  
 
   }
 
   ArreglarUsuarios(){
+    this.NodoUsuario = true;
+    this.ArreglarUsuario = false;  
 
   }
 
   ArreglarTiendas(){
+    this.NodoTienda = true;
+    this.ArreglarTienda = false;  
 
   }
 
   ArreglarPedidos(){
+    this.NodoPedido = true;
+    this.ArreglarPedido = false;  
+
 
   }
 
   ArreglarProductos(){
+    this.NodoProducto = true;
+    this.ArreglarProducto = false;  
     
   }
 

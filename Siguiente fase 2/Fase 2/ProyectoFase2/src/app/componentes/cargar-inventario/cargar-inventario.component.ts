@@ -14,6 +14,8 @@ export class CargarInventarioComponent implements OnInit {
   inventario = new FormControl('');
   mostrarMensaje = false;
   mostrarMensajeError = false;
+  mensajeError = ''
+
 
   constructor(private inventarioservice: InventarioService ) { }
 
@@ -33,6 +35,15 @@ export class CargarInventarioComponent implements OnInit {
 
     }, (err)=>{
       this.mostrarMensajeError=true
+    })
+
+
+    this.inventarioservice.getMerkleProductos().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
   }
 
