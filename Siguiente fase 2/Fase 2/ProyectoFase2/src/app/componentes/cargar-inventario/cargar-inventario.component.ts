@@ -37,7 +37,9 @@ export class CargarInventarioComponent implements OnInit {
       this.mostrarMensajeError=true
     })
 
+  }
 
+  subirMerkle(){
     this.inventarioservice.getMerkleProductos().subscribe((dataList:any)=>{
       console.log(dataList)
       
@@ -45,6 +47,7 @@ export class CargarInventarioComponent implements OnInit {
       this.mostrarMensajeError=true
       this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
+
   }
 
   desactivarMensaje(){

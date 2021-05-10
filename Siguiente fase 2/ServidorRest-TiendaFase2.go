@@ -2460,11 +2460,11 @@ func MerkleTiendasConfig(w http.ResponseWriter, req *http.Request) string{
 		
 					je := strconv.FormatInt(int64(dot), 10)
 
-					if y == fi{
+					if w == fo{
 
 						//nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].NOMBRE = fi
 						nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].DESCRIPCION = fa
-						nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].CONTACTO = fo
+						nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].NOMBRE = fi
 						nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].LOGO = fu
 						nodo.DATOSINFO[ty].DEPARTINFO[yum].NOTIENDA[z].CALIFICACION = fe
 		
@@ -3622,10 +3622,10 @@ func main() {
 	router.HandleFunc("/arbolMerklePedidos", arbolMerklePedidosEndPoint).Methods("GET")
 
 
-	router.HandleFunc("/ConfigMerkleUsuario", ConfigMerkleUsuarioEndPoint).Methods("GET")
-	router.HandleFunc("/ConfigMerkleTiendas", ConfigMerkleTiendasEndPoint).Methods("GET")
-	router.HandleFunc("/ConfigMerkleProductos", ConfigMerkleProductosEndPoint).Methods("GET")
-	router.HandleFunc("/ConfigMerklePedidos", ConfigMerklePedidosEndPoint).Methods("GET")
+	router.HandleFunc("/ConfigMerkleUsuario", ConfigMerkleUsuarioEndPoint).Methods("POST")
+	router.HandleFunc("/ConfigMerkleTiendas", ConfigMerkleTiendasEndPoint).Methods("POST")
+	router.HandleFunc("/ConfigMerkleProductos", ConfigMerkleProductosEndPoint).Methods("POST")
+	router.HandleFunc("/ConfigMerklePedidos", ConfigMerklePedidosEndPoint).Methods("POST")
 
 	//router.HandleFunc("/ArregMerkleUsuario", ArregMerkleUsuarioEndPoint).Methods("GET")
 	//router.HandleFunc("/ArregMerkleTiendas", ArregMerkleTiendasEndPoint).Methods("GET")

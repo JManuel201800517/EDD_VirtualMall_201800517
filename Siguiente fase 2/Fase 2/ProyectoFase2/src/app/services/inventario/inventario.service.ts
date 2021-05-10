@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Inventario } from "../../models/inventario/inventario";
 import { Pedidos } from "../../models/pedidos/pedidos";
 import { ComentProducto } from "../../models/ComentProducto/coment-producto";
+import { Productos } from 'src/app/models/Productos/productos';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,15 @@ export class InventarioService {
       }),
     };
     return this.http.get<any>(baseURL + 'arbolMerkleProductos', httpOptions);
+  }
+
+  ConfigMerkleProductos(producto: Productos):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+    return this.http.post<Productos>(baseURL + 'ConfigMerkleProductos', producto, httpOptions);
   }
 
   postComentarioProducto(producto: ComentProducto):Observable<any>{

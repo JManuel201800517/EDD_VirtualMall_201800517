@@ -22,6 +22,15 @@ export class UsuarioService {
     return this.http.get<any>(baseURL + 'arbolMerkleUsuario', httpOptions);
   }
 
+  ConfigMerkleUsuarios(usuario: Usuario):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+    return this.http.post<Usuario>(baseURL + 'ConfigMerkleUsuario', usuario, httpOptions);
+  }
+
   postCuentas(usuario: any):Observable<Cuentas>{
     const httpOptions = {
       headers: new HttpHeaders({

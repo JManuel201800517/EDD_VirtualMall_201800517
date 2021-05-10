@@ -27,6 +27,15 @@ export class SubirtiendaService {
     return this.http.get<any>(baseURL + 'arbolMerkleTiendas', httpOptions);
   }
 
+  ConfigMerkleTiendas(tienda: Info):Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+    };
+    return this.http.post<Info>(baseURL + 'ConfigMerkleTiendas', tienda, httpOptions);
+  }
+
   postComentarioTienda(tienda: ComentTienda):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({

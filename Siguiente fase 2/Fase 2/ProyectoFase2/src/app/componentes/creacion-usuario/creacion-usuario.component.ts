@@ -47,7 +47,10 @@ export class CreacionUsuarioComponent implements OnInit {
       this.mostrarMensajeError=true
     })
 
+    
+  }
 
+  subirMerkle(){
     this.usuarioService.getMerkleUsuarios().subscribe((dataList:any)=>{
       console.log(dataList)
       
@@ -55,7 +58,7 @@ export class CreacionUsuarioComponent implements OnInit {
       this.mostrarMensajeError=true
       this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
-    
+
   }
 
   crearUsuario(){
@@ -85,15 +88,6 @@ export class CreacionUsuarioComponent implements OnInit {
       console.log("Usuario Creado")
     },(err)=>{
       this.mostrarMensajeError=true
-    })
-
-
-    this.usuarioService.getMerkleUsuarios().subscribe((dataList:any)=>{
-      console.log(dataList)
-      
-    },(err)=>{
-      this.mostrarMensajeError=true
-      this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
 
 
