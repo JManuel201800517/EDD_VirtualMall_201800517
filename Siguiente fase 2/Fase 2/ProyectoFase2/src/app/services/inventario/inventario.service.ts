@@ -23,6 +23,15 @@ export class InventarioService {
     return this.http.get<any>(baseURL + 'arbolMerkleProductos', httpOptions);
   }
 
+  getHashProductos():Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.get<any>(baseURL + 'tablaHashProductos', httpOptions);
+  }
+
   ConfigMerkleProductos(producto: Productos):Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({

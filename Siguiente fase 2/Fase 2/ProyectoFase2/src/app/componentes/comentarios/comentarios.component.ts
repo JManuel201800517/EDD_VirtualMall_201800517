@@ -71,6 +71,7 @@ export class ComentariosComponent implements OnInit {
         }
 
         const produc: ComentProducto={
+          Dpi: dataList[contador].Dpi,
           Producto: dataList[contador].Producto,
           Comentarios:[coment]
         }
@@ -136,35 +137,29 @@ export class ComentariosComponent implements OnInit {
     this.Cproducto = true
   }
 
-  subirSubComentario(){
+  TablaHashTienda(){
 
-    console.log(this.Subcomentario.value)
-    this.inventarioService.postComentarioProducto(this.subtienda).subscribe((res:any)=>{
-      this.mostrarMensaje=true
-      this.Subcomentario.setValue("")
-      //this.nombreInvent.setValue("")
-      //this.password.setValue("")
-      //this.cui.setValue("")
-      //this.correo.setValue("")
-      console.log("SubComentario Subido")
+    this.tiendaService.getHashTiendas().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
     },(err)=>{
       this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la Tabla Hash'
     })
 
-    
+  }
+
+  TablaHashProducto(){
+    this.inventarioService.getHashProductos().subscribe((dataList:any)=>{
+      console.log(dataList)
+      
+    },(err)=>{
+      this.mostrarMensajeError=true
+      this.mensajeError='No se pudo cargar la Tabla Hash'
+    })
 
   }
 
-  subirSubComentario2(){
-    
-  }
 
-  subirSubComentario3(){
-
-  }
-
-  subirSubComentario4(){
-    
-  }
 
 }

@@ -53,6 +53,14 @@
                     Comentarios de Productos
                      
                    </button>
+                   <button (click)="TablaHashTienda()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                    Tabla Hash para comentarios Tiendas
+                     
+                   </button>
+                   <button (click)="TablaHashProducto()" class="btn btn-primary btn-block text-white btn-user" type="submit">
+                    Tabla Hash para comentarios Productos
+                     
+                   </button>
               </div>
           </div>
           <div *ngIf="Cproducto">
@@ -61,6 +69,9 @@
                 <h5>Comentarios Productos</h5>
                 <div *ngFor="let indi of generalProducto.Datos">
                     ---------------------------Productos-----------------------------
+                    <div class="card-header" role="tab">
+                        {{indi.Dpi}}
+                      </div>
                     <div class="card-header" role="tab">
                       {{indi.Producto}}
                     </div>
@@ -82,6 +93,13 @@
                             S.C.:
                             <div class="card-header" role="tab">
                                 {{zak.SubComentario}}
+                            </div>
+
+                            <div *ngFor="let roc of zak.SubComentarios">
+                                SS.C.:
+                                <div class="card-header" role="tab">
+                                {{roc.SubComentario}}
+                            </div>
                             </div>
                             <!--div>
                                 <textarea style = "background-color:pink;" role="tab" [formControl]="Subcomentario2" size="100" class="form-control form-control"
@@ -106,6 +124,9 @@
                 <div *ngFor="let indi of comentarioTienda.Datos">
                     ---------------------------Tienda-----------------------------
                     <div class="card-header" role="tab">
+                        {{indi.Dpi}}
+                      </div>
+                    <div class="card-header" role="tab">
                       {{indi.Tienda}}
                     </div>
                     <div *ngFor="let loc of indi.Comentarios">
@@ -126,6 +147,13 @@
                             S.C.:
                             <div class="card-header" role="tab">
                                 {{zak.SubComentario}}
+                            </div>
+
+                            <div *ngFor="let roc of zak.SubComentarios">
+                                SS.C.:
+                                <div class="card-header" role="tab">
+                                {{roc.SubComentario}}
+                            </div>
                             </div>
                             <!--div>
                                 <textarea style = "background-color:pink;" role="tab" [formControl]="Subcomentario4" size="100" class="form-control form-control"

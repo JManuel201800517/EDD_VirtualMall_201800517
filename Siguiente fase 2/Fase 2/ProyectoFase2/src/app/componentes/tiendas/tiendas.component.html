@@ -46,14 +46,20 @@
                     <div class="card-header" role="tab">
                       <h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Calificacion: {{loc.Calificacion}}</a></h5>
                     </div>
-                    <div class="card-header" role="tab">
-                      <!--h5 class="mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2">Cantidad:    {{loc.Cantidad}}</a></h5-->
+                    <div class="form-group row" role="tab">Dpi o Id Cliente
+                      <textarea style= "background-color:lightgrey;" role="tab" [formControl]="DPI" size="100" class="form-control form-control"
+                      id="DPI" placeholder="Ingrese su Dpi o ID" name="ejemplo_DPI"></textarea>
                     </div>
                     <div class="form-group row" role="tab">Comentarios de la Tienda
                       <textarea style = "background-color:darksalmon;" role="tab" [formControl]="nombreInvent" size="100" class="form-control form-control"
                       id="nombreInvent" placeholder="Ingrese el nombre de la Tienda" name="ejemplo_comentario"></textarea>
                       <textarea style = "background-color:greenyellow;" role="tab" [formControl]="comentario" size="100" class="form-control form-control"
                       id="ejemplocomentario" placeholder="Comentario" name="ejemplo_comentario"></textarea>
+                      Subcomentarios del Producto<textarea style = "background-color:darkgoldenrod;" role="tab" [formControl]="subcomentario" size="100" class="form-control form-control"
+                        id="ejemplosubcomentario" placeholder="SubComentario" name="ejemplo_subcomentario"></textarea>
+                        <textarea style = "background-color:darkgoldenrod;" role="tab" [formControl]="subcomentario2" size="100" class="form-control form-control"
+                        id="ejemplosubcomentario2" placeholder="SubComentario" name="ejemplo_subcomentario2"></textarea>
+                      
 
                       <button (click)="subirComentario()" class="btn btn-primary btn-block text-white btn-user" type="submit">
                         Subir Comentario

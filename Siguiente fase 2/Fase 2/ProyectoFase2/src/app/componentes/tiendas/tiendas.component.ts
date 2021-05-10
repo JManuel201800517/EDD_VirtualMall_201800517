@@ -10,6 +10,7 @@ import { Departamentos } from 'src/app/models/departamentos/departamentos';
 import { Info } from 'src/app/models/info/info';
 import { Comentarios } from 'src/app/models/Comentarios/comentarios';
 import { ComentTienda } from 'src/app/models/ComentTienda/coment-tienda';
+import { SubComentarios } from 'src/app/models/SubComentarios/sub-comentarios';
 
 
 @Component({
@@ -29,7 +30,9 @@ export class TiendasComponent implements OnInit {
 
   comentario = new FormControl('');
   subcomentario = new FormControl('');
+  subcomentario2 = new FormControl('');
   nombreInvent = new FormControl('');
+  DPI = new FormControl("");
 
   mostrarMensajeError=false
   mostrarMensaje=false
@@ -92,13 +95,23 @@ export class TiendasComponent implements OnInit {
   }
 
   subirComentario(){
+    const subcoment2: SubComentarios={
+      SubComentario: this.subcomentario2.value,
+      SubComentarios:[]
+    }
+    
+    const subcoment: SubComentarios={
+      SubComentario: this.subcomentario.value,
+      SubComentarios:[subcoment2]
+    }
 
     const comentar: Comentarios={
       Comentario:this.comentario.value,
-      SubComentarios:[]
+      SubComentarios:[subcoment]
     }
 
     const tienda: ComentTienda={
+      Dpi: Number(this.DPI.value),
       Tienda:this.nombreInvent.value,
       Comentarios: [comentar]
     }
@@ -108,6 +121,9 @@ export class TiendasComponent implements OnInit {
       this.mostrarMensaje=true
       this.comentario.setValue("")
       this.nombreInvent.setValue("")
+      this.subcomentario.setValue("")
+      this.DPI.setValue("")
+      this.subcomentario2.setValue("")
       //this.password.setValue("")
       //this.cui.setValue("")
       //this.correo.setValue("")

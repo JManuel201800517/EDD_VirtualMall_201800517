@@ -56,6 +56,10 @@ export class CargarTiendasComponent implements OnInit {
     })
 
 
+    
+  }
+
+  subirMerkle(){
     this.subirtiendaservice.getMerkleTiendas().subscribe((dataList:any)=>{
       console.log(dataList)
       
@@ -63,6 +67,7 @@ export class CargarTiendasComponent implements OnInit {
       this.mostrarMensajeError=true
       this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
+
   }
 
   desactivarMensaje(){

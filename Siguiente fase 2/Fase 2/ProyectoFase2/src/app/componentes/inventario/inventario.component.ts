@@ -20,7 +20,9 @@ export class InventarioComponent implements OnInit {
 
   comentario = new FormControl('');
   subcomentario = new FormControl('');
+  subcomentario2 = new FormControl('');
   nombreInvent = new FormControl('');
+  DPI = new FormControl('');
 
   mostrarMensajeError=false
   mostrarMensaje=false
@@ -77,12 +79,23 @@ export class InventarioComponent implements OnInit {
 
   subirComentario(){
 
-    const comentar: Comentarios={
-      Comentario:this.comentario.value,
+    const subcoment2: SubComentarios={
+      SubComentario: this.subcomentario2.value,
       SubComentarios:[]
     }
 
+    const subcoment: SubComentarios={
+      SubComentario: this.subcomentario.value,
+      SubComentarios:[subcoment2]
+    }
+
+    const comentar: Comentarios={
+      Comentario:this.comentario.value,
+      SubComentarios:[subcoment]
+    }
+
     const producto: ComentProducto={
+      Dpi: Number(this.DPI.value),
       Producto:this.nombreInvent.value,
       Comentarios: [comentar]
     }
@@ -92,6 +105,9 @@ export class InventarioComponent implements OnInit {
       this.mostrarMensaje=true
       this.comentario.setValue("")
       this.nombreInvent.setValue("")
+      this.subcomentario2.setValue("")
+      this.subcomentario.setValue("")
+      this.DPI.setValue("")
       //this.password.setValue("")
       //this.cui.setValue("")
       //this.correo.setValue("")

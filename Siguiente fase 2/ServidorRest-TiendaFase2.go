@@ -158,6 +158,7 @@ type Enlaces struct {
 var Tcomentario []ComentarioTienda
 
 type ComentarioTienda struct{
+	IDCliente int `json:"Dpi,omitempty"`
 	Tienda   string  `json:"Tienda,omitempty"`
 	ComentTienda  []Comentario  `json:"Comentarios,omitempty"`
 }
@@ -165,6 +166,7 @@ type ComentarioTienda struct{
 var Icomentario []ComentarioProducto
 
 type ComentarioProducto struct{
+	IDCliente int `json:"Dpi,omitempty"`
 	Producto  string  `json:"Producto,omitempty"`
 	ComentProducto  []Comentario  `json:"Comentarios,omitempty"`
 
@@ -3632,8 +3634,8 @@ func main() {
 	//router.HandleFunc("/ArregMerkleProductos", ArregMerkleProductosEndPoint).Methods("GET")
 	//router.HandleFunc("/ArregMerklePedidos", ArregMerklePedidosEndPoint).Methods("GET")
 
-
-
+	router.HandleFunc("/tablaHashTiendas", TablaHashTiendas).Methods("GET")
+	router.HandleFunc("/tablaHashProductos", TablaHashProductos).Methods("GET")
 
 
 

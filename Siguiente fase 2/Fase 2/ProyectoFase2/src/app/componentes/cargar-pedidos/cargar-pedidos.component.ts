@@ -37,6 +37,10 @@ export class CargarPedidosComponent implements OnInit {
     })
 
 
+    
+  }
+
+  subirMerkle(){
     this.pedidosservice.getMerklePedidos().subscribe((dataList:any)=>{
       console.log(dataList)
       
@@ -44,6 +48,7 @@ export class CargarPedidosComponent implements OnInit {
       this.mostrarMensajeError=true
       this.mensajeError='No se pudo cargar la lista de Inventarios'
     })
+
   }
 
   desactivarMensaje(){
