@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"crypto/sha256"
 	"encoding/hex"
+	"math"
 
 	"github.com/kr/fernet"
 	//"time"
@@ -163,6 +164,11 @@ type ComentarioTienda struct{
 	ComentTienda  []Comentario  `json:"Comentarios,omitempty"`
 }
 
+type CTienda struct{
+	IDCliente int `json:"Dpi,omitempty"`
+	Tienda   string  `json:"Tienda,omitempty"`
+}
+
 var Icomentario []ComentarioProducto
 
 type ComentarioProducto struct{
@@ -170,6 +176,11 @@ type ComentarioProducto struct{
 	Producto  string  `json:"Producto,omitempty"`
 	ComentProducto  []Comentario  `json:"Comentarios,omitempty"`
 
+}
+
+type CProducto struct{
+	IDCliente int `json:"Dpi,omitempty"`
+	Producto  string  `json:"Producto,omitempty"`
 }
 
 type Comentario struct{
@@ -3586,6 +3597,195 @@ func ConfigMerklePedidosEndPoint(w http.ResponseWriter, req *http.Request){
 
 
 }
+
+
+func HashTiendasCrear() string{
+
+	//var idCounter = make(map[CTienda]int)
+	//var idCounter = make(map[int]int)
+	//var keys = []int{}
+	A := 0.0050
+
+	//rot := 0
+
+	//for _, id := range Tcomentario{
+	//	hId := id.IDCliente
+	//	hTienda := id.Tienda
+	//	idCounter[hId]++
+	//}
+
+	//for ka := range idCounter {
+	//	keys = append(keys, ka)
+	//}
+
+    //for rot < 1000{
+	
+		n := 7
+		fot := 0
+		var HKey [1000]int
+
+
+		for _, k := range Tcomentario{
+
+			x := k.IDCliente
+
+			HKey[fot] = x
+
+			dot := ((n+1)/2)-1
+
+			if fot == dot{
+				n = n + 1
+				jet := 0
+
+				for jet < 1000{
+					
+					d := 2
+					hum := n - 1
+					for d < hum{
+						if n % d == 0{
+							n = n + 1
+							d = hum + 2
+
+						}else{
+							if d == hum - 1{
+								jet = 1000 + 1
+
+							}else{
+								d = d + 1
+							}
+							
+						}
+
+					}
+					
+
+
+				}
+				//n = 11
+				fot = fot + 1
+
+			}else{
+				fot = fot + 1
+
+			}
+
+		}
+		m := n
+
+		var HK [1000]int
+
+		for _, k := range Tcomentario{
+
+			x := k.IDCliente
+			//mis := float64(x)
+
+			trot := float64(x)*A
+
+			red := float64(m)*math.Mod(trot, float64(1))
+			j := int(red)
+
+			if HK[j] == 0{
+				HK[j] = x
+
+			}else{
+				i := 1
+				jot := 0
+
+				for jot < 1000{
+					trot := float64(x)*A
+					ris := math.Mod((float64(m)*math.Mod(trot, float64(1)) + float64(i*i)), float64(m))
+					a := int(ris)
+
+					if HK[a] == 0{
+						HK[a] = x
+						jot = 1000 + 1
+
+					}else{
+						i = i + 1
+					}
+
+
+				}
+
+			}
+
+		}
+
+		
+
+			
+	//}
+	
+
+
+
+	
+
+}
+
+func TablaHashTiendas(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(HashTiendasCrear())
+    err := ioutil.WriteFile("HashTiendas.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearHashTiendas.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./HashTiendas.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+func HashProductosCrear() string{}
+
+func TablaHashProductos(w http.ResponseWriter, req *http.Request){
+
+	data := []byte(HashProductosCrear())
+    err := ioutil.WriteFile("HashProductos.dot", data, 0644)
+    if err != nil {
+        log.Fatal(err)
+    }
+	//Generamos la imagen
+	app := "crearHashProductos.bat"
+	_, err2 := exec.Command(app).Output()
+	if err2 != nil {
+		fmt.Println("errrooor :(")
+		fmt.Println(err2)
+	} else {
+		fmt.Println("Todo bien")
+	}
+	//abrimos la imagen
+	img, err3 := os.Open("./HashProductos.png")
+    if err3 != nil {
+        log.Fatal(err3) // perhaps handle this nicer
+    }
+    defer img.Close()
+	//devolvemos como respuesta la imagen
+    w.Header().Set("Content-Type", "image/png")
+    io.Copy(w, img)
+
+
+}
+
+
+
 
 
 
