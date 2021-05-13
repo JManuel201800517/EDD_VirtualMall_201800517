@@ -3633,22 +3633,34 @@ func HashTiendasCrear() string{
 
 			dot := ((n+1)/2)-1
 
-			if fot == dot{
-				n = n + 1
+			fmt.Println(n)
+			fmt.Println(dot)
+
+			if dot == fot{
+				n = n + 2
 				jet := 0
+
+				fmt.Println("Paso el igual")
 
 				for jet < 1000{
 					
 					d := 2
-					hum := n - 1
+					hum := n 
 					for d < hum{
 						if n % d == 0{
-							n = n + 1
+							fmt.Println(n)
+							fmt.Println("No es primo")
+
+							n = n + 2
 							d = hum + 2
 
 						}else{
-							if d == hum - 1{
+							if d == (hum - 1){
+								fmt.Println(n)
+							    fmt.Println("Si es primo")
+
 								jet = 1000 + 1
+								d = hum + 2
 
 							}else{
 								d = d + 1
@@ -3711,15 +3723,120 @@ func HashTiendasCrear() string{
 
 		}
 
+		var grafo string
+	    grafo="digraph G{\n"
+	    grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	    grafo+=""
+
+
+		deta := 0
+
+		for deta < m{
+
+			nodet := HK[deta]
+
+			if nodet == 0{
+				bay := strconv.FormatInt(int64(deta), 10)
+
+				grafo+=`N`+ bay +`[shape=record, label="`+bay+`&#92;n&#92;n----&#92;n----"];`
+				deta = deta + 1
+
+			}else{
+				for _, nodo := range Tcomentario{
+
+					cli := nodo.IDCliente
+					tie := nodo.Tienda
+
+					if nodet == cli{
+
+						bay := strconv.FormatInt(int64(deta), 10)
+						jay := strconv.FormatInt(int64(nodet), 10)
+	
+						grafo+=`N`+ bay +`[shape=record, label="`+bay+`&#92;n&#92;n`+jay+`&#92;n`+tie+`"];`
+						
+						deta = deta + 1
+	
+	
+					}else{
+						fmt.Println("Se Sigue Buscando")
+					}
 		
+		
+		
+				}
 
+
+			}
+
+		}
+
+		jeta := 1
+
+		for jeta < m{
+			bay := strconv.FormatInt(int64(jeta), 10)
+			biy := strconv.FormatInt(int64(jeta - 1), 10)
+
+			grafo += "N"+biy+" -> N"+bay+";"
+			jeta = jeta + 1
+
+		}
+
+		for _, nodo := range Tcomentario{
+			cli := nodo.IDCliente
+
+			z := 0
+		    for z < len(nodo.ComentTienda){
+
+				co := nodo.ComentTienda[z].Coment
+
+				y := 0
+				for y < len(nodo.ComentTienda[z].SubComent){
+
+					su := nodo.ComentTienda[z].SubComent[y].Sub
+
+					f := 0
+					for f < len(nodo.ComentTienda[z].SubComent[y].SubComent){
+
+						su2 := nodo.ComentTienda[z].SubComent[y].SubComent[f].Sub
+
+						heta := 0
+						for heta < m{
+							jodet := HK[heta]
 			
+							if jodet == cli{
+								bay := strconv.FormatInt(int64(heta), 10)
+								day := strconv.FormatInt(int64(heta+z+y+f), 10)
+
+								grafo+=`C`+ day +`[shape=record, label="Comentario: `+co+`&#92;n&#92;n SubComentarios: `+su+`&#92;n`+su2+`"];`
+
+								grafo += "N"+bay+" -> C"+day+";"
+
+								heta = m + 1
+			
+							}else{
+								heta = heta + 1
+							}
+						}
+
+
+						f = f + 1
+
+					}
+					y = y + 1
+				}
+				z = z + 1
+			}
+
+		}
+
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+	
 	//}
-	
-
-
-
-	
+		
 
 }
 
@@ -3753,7 +3870,247 @@ func TablaHashTiendas(w http.ResponseWriter, req *http.Request){
 }
 
 
-func HashProductosCrear() string{}
+func HashProductosCrear() string{
+
+	//var idCounter = make(map[CTienda]int)
+	//var idCounter = make(map[int]int)
+	//var keys = []int{}
+	A := 0.0050
+
+	//rot := 0
+
+	//for _, id := range Tcomentario{
+	//	hId := id.IDCliente
+	//	hTienda := id.Tienda
+	//	idCounter[hId]++
+	//}
+
+	//for ka := range idCounter {
+	//	keys = append(keys, ka)
+	//}
+
+    //for rot < 1000{
+	
+		n := 7
+		fot := 0
+		var HKey [1000]int
+
+
+		for _, k := range Icomentario{
+
+			x := k.IDCliente
+
+			HKey[fot] = x
+
+			dot := ((n+1)/2)-1
+
+			fmt.Println(n)
+			fmt.Println(dot)
+
+			if fot == dot{
+				n = n + 2
+				jet := 0
+
+				fmt.Println("Paso el igual")
+
+				for jet < 1000{
+					
+					d := 2
+					hum := n 
+					for d < hum{
+						if n % d == 0{
+							fmt.Println(n)
+							fmt.Println("No es primo")
+
+							n = n + 2
+							d = hum + 2
+
+						}else{
+							if d == (hum - 1){
+								fmt.Println(n)
+							    fmt.Println("Si es primo")
+
+								jet = 1000 + 1
+								d = hum + 2
+
+							}else{
+								d = d + 1
+							}
+							
+						}
+
+					}
+					
+
+
+				}
+				//n = 11
+				fot = fot + 1
+
+			}else{
+				fot = fot + 1
+
+			}
+
+		}
+		m := n
+
+		var HK [1000]int
+
+		for _, k := range Icomentario{
+
+			x := k.IDCliente
+			//mis := float64(x)
+
+			trot := float64(x)*A
+
+			red := float64(m)*math.Mod(trot, float64(1))
+			j := int(red)
+
+			if HK[j] == 0{
+				HK[j] = x
+
+			}else{
+				i := 1
+				jot := 0
+
+				for jot < 1000{
+					trot := float64(x)*A
+					ris := math.Mod((float64(m)*math.Mod(trot, float64(1)) + float64(i*i)), float64(m))
+					a := int(ris)
+
+					if HK[a] == 0{
+						HK[a] = x
+						jot = 1000 + 1
+
+					}else{
+						i = i + 1
+					}
+
+
+				}
+
+			}
+
+		}
+
+		var grafo string
+	    grafo="digraph G{\n"
+	    grafo+="graph [compound=true, labelloc=\"b\"];\n"
+	    grafo+=""
+
+
+		deta := 0
+
+		for deta < m{
+
+			nodet := HK[deta]
+
+			if nodet == 0{
+				bay := strconv.FormatInt(int64(deta), 10)
+
+				grafo+=`N`+ bay +`[shape=record, label="`+bay+`&#92;n&#92;n----&#92;n----"];`
+				deta = deta + 1
+
+			}else{
+				for _, nodo := range Icomentario{
+
+					cli := nodo.IDCliente
+					tie := nodo.Producto
+
+					if nodet == cli{
+
+						bay := strconv.FormatInt(int64(deta), 10)
+						jay := strconv.FormatInt(int64(nodet), 10)
+	
+						grafo+=`N`+ bay +`[shape=record, label="`+bay+`&#92;n&#92;n`+jay+`&#92;n`+tie+`"];`
+						
+						deta = deta + 1
+	
+	
+					}else{
+						fmt.Println("Se Sigue Buscando")
+					}
+		
+		
+		
+				}
+
+
+			}
+
+		}
+
+		jeta := 1
+
+		for jeta < m{
+			bay := strconv.FormatInt(int64(jeta), 10)
+			biy := strconv.FormatInt(int64(jeta - 1), 10)
+
+			grafo += "N"+biy+" -> N"+bay+";"
+			jeta = jeta + 1
+
+		}
+
+		for _, nodo := range Icomentario{
+			cli := nodo.IDCliente
+
+			z := 0
+		    for z < len(nodo.ComentProducto){
+
+				co := nodo.ComentProducto[z].Coment
+
+				y := 0
+				for y < len(nodo.ComentProducto[z].SubComent){
+
+					su := nodo.ComentProducto[z].SubComent[y].Sub
+
+					f := 0
+					for f < len(nodo.ComentProducto[z].SubComent[y].SubComent){
+
+						su2 := nodo.ComentProducto[z].SubComent[y].SubComent[f].Sub
+
+						heta := 0
+						for heta < m{
+							jodet := HK[heta]
+			
+							if jodet == cli{
+								bay := strconv.FormatInt(int64(heta), 10)
+								day := strconv.FormatInt(int64(heta+z+y+f), 10)
+
+								grafo+=`C`+ day +`[shape=record, label="Comentario: `+co+`&#92;n&#92;n SubComentarios: `+su+`&#92;n`+su2+`"];`
+
+								grafo += "N"+bay+" -> C"+day+";"
+
+								heta = m + 1
+			
+							}else{
+								heta = heta + 1
+							}
+						}
+
+
+						f = f + 1
+
+					}
+					y = y + 1
+				}
+				z = z + 1
+			}
+
+		}
+
+
+	grafo+=""
+	grafo+="}"
+	return grafo
+
+	
+	//}
+		
+
+}
+
 
 func TablaHashProductos(w http.ResponseWriter, req *http.Request){
 

@@ -1,0 +1,3 @@
+digraph G{
+graph [compound=true, labelloc="b"];
+N0[shape=record, label="0&#92;n&#92;n----&#92;n----"];N1[shape=record, label="1&#92;n&#92;n----&#92;n----"];N2[shape=record, label="2&#92;n&#92;n----&#92;n----"];N3[shape=record, label="3&#92;n&#92;n----&#92;n----"];N4[shape=record, label="4&#92;n&#92;n----&#92;n----"];N5[shape=record, label="5&#92;n&#92;n----&#92;n----"];N6[shape=record, label="6&#92;n&#92;n----&#92;n----"];N7[shape=record, label="7&#92;n&#92;n----&#92;n----"];N0 -> N1;N1 -> N2;N2 -> N3;N3 -> N4;N4 -> N5;N5 -> N6;N6 -> N7;}
